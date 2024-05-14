@@ -1,4 +1,4 @@
-grammar instruction;
+grammar gpsr;
 
 /* MAIN */
 instruction : mainSentence+;
@@ -215,6 +215,11 @@ Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dis
              | 'handwash' | 'shampoo' | 'cookie' | 'lays' | 'bowl' | 'cloth' | 'tray';
 Object_alike : Object;
 Object_known : Object;
+
+Object_alike_obfuscated: Category;
+Object_obfuscated: Category;
+
+Pron: 'he' | 'she' | 'it' | 'mine' | 'yours' | 'theirs' | 'my' | 'your' | 'their';
 
 /* Gestures */
 Gesture : 'waving' | 'raising their left arm' | 'raising their right arm' 
