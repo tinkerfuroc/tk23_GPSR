@@ -15,7 +15,7 @@ main : fndppl | fndobj | guide | follow | followout | incomplete | man | complex
 findp
     : vbfind 'a' pgenders
     | vbfind 'a person' Gesture
-    | vbfind 'a person' Pose
+    | vbfind 'a person' pose
     ;
 // A named or described person in the given place
 whoWhere : 'the person' Gesture 'in the' Room;
@@ -23,13 +23,13 @@ whoWhere : 'the person' Gesture 'in the' Room;
 /* Manipulation */
 man : deliver;
 deliver
-    : take 'and' vbplace 'it on the' Location_placement
-    | vbplace 'the' Object_known 'on the' Location_placement
+    : take 'and' vbplace 'it on the' Placement
+    | vbplace 'the' Object_known 'on the' Placement
     | vbbring 'me the' Object_known
     | vbdeliver 'the' Object_known 'to' someone
-    | takefrom 'and' vbplace 'it on the' Location_placement
-    | goplace ',' vbfind 'the' object 'to' someone
-    | gopplace ',' vbfind 'the' object ',' 'and' place
+    | takefrom 'and' vbplace 'it on the' Placement
+    | goplace ',' vbfind 'the' Object 'to' someone
+    | goplace ',' vbfind 'the' Object ',' 'and' place
     | vbbtake 'the' Object_alike 'from the' Room 'to the' Placement
     | vbbring 'me the' Object_alike 'from the' Placement
     | takefrom 'and' delivme
@@ -46,15 +46,15 @@ cmancmd
     | vbbring 'me the object' relpos 'the' Object cmanobjsrc
     | vbbring 'me the' oprop 'object' cmanobjsrc
     | vbbring 'me the' oprop Category cmanobjsrc
-    | vbclean 'the' Room
+    | vbcleanup 'the' Room
     | vbtakeout 'the' garbage
     ;
 cmanobjsrc : 'from the' Placement;
 
 /* Find objects */
 fndobj
-    : 'Tell me how many' object 'there are on the' Placement
-    | vbfind 'the' object 'in the' Room
+    : 'Tell me how many' Object 'there are on the' Placement
+    | vbfind 'the' Object 'in the' Room
     | vbfind 'the' Object_alike_obfuscated 'in the' Room
     | 'Tell me how many' Category 'there are on the' Placement
     | 'Tell me what\'s the' oprop 'object on the' Placement
@@ -84,7 +84,7 @@ fndppl
 follow 
     : vbfollow Name 'from the' Beacon 'to the' Room
     | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest?
-    | gobeacon ',' 'meet' Name ',' 'and' vbfollow Pron fllwhdst
+    | gobeacon ',' 'meet' Name ',' 'and' vbfollow Pron
     ;
 fllmeet
     : ('meet' Name) | 'find a person'
@@ -111,7 +111,7 @@ followout
 /* Incomplete commands */
 incomplete
     : vbfollow Name
-    | cmanwarn vbbring 'me the' Object_obfuscated
+    | vbbring 'me the' Object_obfuscated
     | vbdeliver Object_obfuscated 'to' someone
     | vbguide Name 'to the' Beacon
     | 'meet' inguidewho 'and' vbguide Pron
@@ -154,16 +154,16 @@ vbmeet    : 'contact' | 'face' | 'find' | 'greet';
 // people
 someone : 'me' | whoWhere;
 // place an object
-place : vbplace 'it on the' Location_placement;
+place : vbplace 'it on the' Placement;
 // object properties
 oprop : 'biggest' | 'largest' | 'smallest' | 'heaviest' | 'lightest' | 'thinnest';
 // navigating
-goplace : vbgopl 'to the' Location_placement;
+goplace : vbgopl 'to the' Placement;
 gobeacon : vbgopl 'to the' Beacon;
 goroom : vbgopl 'to the' Room;
 // take an object
-take : vbtake 'the' object;
-takefrom : take 'from the' Location_placement;
+take : vbtake 'the' Object;
+takefrom : take 'from the' Placement;
 // deliver an object
 delivme : vbdeliver 'it to me';
 delivto : vbdeliver 'it to' Name;
