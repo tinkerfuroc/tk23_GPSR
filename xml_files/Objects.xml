@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	This is an example file for testing the generators.
+	The real information used in Montreal 2018 will be published
+	and distributed by the Organizing Committee during Setup days
+//-->
+<categories>
+
+	<category name="food" defaultLocation="desk" room="bedroom">
+		<object name="chip"   type="known" difficulty="high" />
+		<object name="biscuit" type="known" difficulty="easy" />
+		<object name="bread"  type="known" difficulty="moderate" />
+	</category>
+
+	<category name="object" defaultLocation="side table" room="living room">
+		<object name="sprite"     type="special" difficulty="high"      canPlaceOn="true" twoHands="true"  />
+		<object name="cola"   type="special" difficulty="high"      canPlaceIn="true" twoHands="true"  />
+		<object name="water"      type="special" difficulty="easy"      canPlaceIn="true"                  />
+	</category>
+
+	<category name="drinks"    defaultLocation="storage table" room="kitchen">
+		<object name="water"     type="known" difficulty="high" />
+		<object name="cola"    type="known" difficulty="high" />
+		<object name="sprite"    type="known" difficulty="high" />
+	</category>
+
+	<category name="cleaning stuff"         defaultLocation="sink" room="kitchen">
+		<object name="dishsoap" type="known" difficulty="easy" canPour="true" />
+		<object name="handwash"            type="known" difficulty="easy" canPour="true" />
+		<object name="shampoo"    type="known" difficulty="easy" canPour="true" />
+	</category>
+
+	<category name="cleaning stuff"       defaultLocation="dishwasher" room="kitchen">
+		<object name="dishsoap"   type="known" difficulty="easy" />
+		<object name="shampoo"  type="known" difficulty="easy" />
+		<object name="handwash" type="known" difficulty="easy" />
+	</category>
+
+	<category name="food"     defaultLocation="TV cabinet" room="living room">
+		<object name="biscuit"    type="alike" difficulty="moderate" />
+		<object name="cookie"   type="alike" difficulty="moderate" />
+		<object name="lays"  type="alike" difficulty="moderate" />
+	</category>
+
+
+</categories>
+
+
