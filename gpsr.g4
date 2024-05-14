@@ -3,7 +3,7 @@ grammar instruction;
 /* MAIN */
 instruction : mainSentence+;
 mainSentence : pmain | main;
-pmain : polite main;
+pmain : polite? main;
 
 main : fndppl | fndobj | guide | follow | followout | incomplete | man | complexman | partyhost;
 
@@ -83,21 +83,18 @@ fndppl
 /* Follow People */
 follow 
     : vbfollow Name 'from the' Beacon 'to the' Room
-    | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest
+    | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest?
     | gobeacon ',' 'meet' Name ',' 'and' vbfollow Pron fllwhdst
     ;
 fllmeet
     : ('meet' Name) | 'find a person'
     ;
 fllwdest
-    : ('to the' Room) | fllwhdst
-    ;
-fllwhdst
-    : Void
+    : ('to the' Room)
     ;
 
 /* Follow [& Guide] */
-guide : gdcmd gdmeta;
+guide : gdcmd;
 gdcmd
     : vbguide Name 'from the' Beacon 'to the' Beacon
     | 'meet' Name 'at the' Beacon 'and' guideto
@@ -106,7 +103,6 @@ gdcmd
     ;
 guideto : vbguide Pron 'to the' Beacon;
 gdwhere : 'you' ( 'may' | 'can' | 'will' ) 'find' Pron 'at the' Beacon;
-gdmeta : Void
 followout
     : 'meet' Name 'at the' Beacon ',' vbfollow Pron ', and' goroom
     | 'meet' Name 'at the' Beacon ',' vbfollow Pron ', and' vbguide Pron 'back'
@@ -202,8 +198,7 @@ vbfollow : 'follow';
 
 /* Polite */
 polite
-    : Void
-    | 'Please'
+    : 'Please'
     | 'Could you'
     | 'Robot please'
     | 'Could you please'
