@@ -23,8 +23,8 @@ struct Task{
 
 class gpsrCustomVisitor : public gpsrBaseVisitor{
 private:
-
-
+    std::vector<Task> tasks;
+    int idx=0;
 public:
     // 开启任务
     std::any visitInstruction(gpsrParser::InstructionContext *ctx) override final{
