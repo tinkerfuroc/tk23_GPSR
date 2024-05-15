@@ -38,11 +38,11 @@ public:
     T__134 = 135, T__135 = 136, T__136 = 137, T__137 = 138, T__138 = 139, 
     T__139 = 140, T__140 = 141, T__141 = 142, T__142 = 143, T__143 = 144, 
     T__144 = 145, T__145 = 146, T__146 = 147, T__147 = 148, T__148 = 149, 
-    T__149 = 150, T__150 = 151, T__151 = 152, T__152 = 153, T__153 = 154, 
-    T__154 = 155, T__155 = 156, Category = 157, Object = 158, Object_alike = 159, 
-    Object_known = 160, Object_alike_obfuscated = 161, Object_obfuscated = 162, 
-    Pron = 163, Gesture = 164, Room = 165, Beacon = 166, Placement = 167, 
-    Location_except_room = 168, Name = 169, Question = 170
+    T__149 = 150, T__150 = 151, T__151 = 152, T__152 = 153, Comma = 154, 
+    Category = 155, Object = 156, Object_alike = 157, Object_known = 158, 
+    Object_alike_obfuscated = 159, Object_obfuscated = 160, Pron = 161, 
+    Gesture = 162, Room = 163, Beacon = 164, Placement = 165, Location_except_room = 166, 
+    Name = 167, Question = 168
   };
 
   explicit gpsrLexer(antlr4::CharStream *input);
