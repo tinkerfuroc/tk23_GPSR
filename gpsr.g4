@@ -28,8 +28,8 @@ deliver
     | vbbring 'me the' Object_known
     | vbdeliver 'the' Object_known 'to' someone
     | takefrom 'and' vbplace 'it on the' Placement
-    | goplace ',' vbfind 'the' Object 'to' someone
-    | goplace ',' vbfind 'the' Object ',' 'and' place
+    | goplace Comma? vbfind 'the' Object 'to' someone
+    | goplace Comma? vbfind 'the' Object Comma? 'and' place
     | vbbtake 'the' Object_alike 'from the' Room 'to the' Placement
     | vbbring 'me the' Object_alike 'from the' Placement
     | takefrom 'and' delivme
@@ -69,7 +69,7 @@ fndobj
 fndppl
     : talk 'to' whoWhere
     | findp 'in the' Room 'and' talk
-    | goroom ',' findp ',' 'and' talk
+    | goroom Comma? findp Comma? 'and' talk
     | 'Tell me the name of the person at the' Beacon
     | 'Tell me the gender of the person at the' Beacon
     | 'Tell me the pose of the person at the' Beacon
@@ -84,7 +84,7 @@ fndppl
 follow 
     : vbfollow Name 'from the' Beacon 'to the' Room
     | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest?
-    | gobeacon ',' 'meet' Name ',' 'and' vbfollow Pron
+    | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron
     ;
 fllmeet
     : ('meet' Name) | 'find a person'
@@ -98,14 +98,14 @@ guide : gdcmd;
 gdcmd
     : vbguide Name 'from the' Beacon 'to the' Beacon
     | 'meet' Name 'at the' Beacon 'and' guideto
-    | gobeacon ',' 'meet' Name ',' 'and' guideto
-    | vbguide Name 'to the' Beacon ',' gdwhere
+    | gobeacon Comma? 'meet' Name Comma? 'and' guideto
+    | vbguide Name 'to the' Beacon Comma? gdwhere
     ;
 guideto : vbguide Pron 'to the' Beacon;
 gdwhere : 'you' ( 'may' | 'can' | 'will' ) 'find' Pron 'at the' Beacon;
 followout
-    : 'meet' Name 'at the' Beacon ',' vbfollow Pron ', and' goroom
-    | 'meet' Name 'at the' Beacon ',' vbfollow Pron ', and' vbguide Pron 'back'
+    : 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' goroom
+    | 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back'
     ;
 
 /* Incomplete commands */
@@ -115,7 +115,7 @@ incomplete
     | vbdeliver Object_obfuscated 'to' someone
     | vbguide Name 'to the' Beacon
     | 'meet' inguidewho 'and' vbguide Pron
-    | gobeacon ', meet' inguidewho ', and' vbguide Pron
+    | gobeacon Comma? 'meet' inguidewho Comma? 'and' vbguide Pron
     ;
 inguidewho : Name;
 
@@ -204,6 +204,8 @@ polite
     | 'Could you please'
     ;
 
+
+Comma : ',';
 
 /* ---------------------    xmls    -------------------------- */
 
