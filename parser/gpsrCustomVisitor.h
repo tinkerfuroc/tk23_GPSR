@@ -40,6 +40,7 @@ public:
     }
     // 找东西
     std::any visitFndobj(gpsrParser::FndobjContext *ctx) override final{
+        tasks.push_back(Task{FIND_OBJECT});
         return visitChildren(ctx);
     }
     // 找人
@@ -52,6 +53,26 @@ public:
     }
     // 引导
     std::any visitGuide(gpsrParser::GuideContext *ctx) override final{
+        return visitChildren(ctx);
+    }
+    // 跟随出场地
+    std::any visitFollowout(gpsrParser::FollowoutContext *ctx) override {
+        return visitChildren(ctx);
+    }
+    // Incomplete
+    std::any visitIncomplete(gpsrParser::IncompleteContext *ctx) override {
+        return visitChildren(ctx);
+    }
+    // Party Host
+    std::any visitPartyhost(gpsrParser::PartyhostContext *ctx) override {
+        return visitChildren(ctx);
+    }
+    // 抓取
+    std::any visitMan(gpsrParser::ManContext *ctx) override {
+        return visitChildren(ctx);
+    }
+    // 复杂的抓取
+    std::any visitComplexman(gpsrParser::ComplexmanContext *ctx) override {
         return visitChildren(ctx);
     }
 };
