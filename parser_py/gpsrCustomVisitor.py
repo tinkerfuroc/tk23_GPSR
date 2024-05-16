@@ -28,16 +28,16 @@ class KeywordType(enum.Enum):
 
 class Keyword:
     def __init__(self, type=0, string="") -> None:
-        self.type = type
+        self.type : KeywordType = type
         # For task type IDENTIFY, this can be left blank if the task is to
-        self.string = string
+        self.string : str = string
 
     def __str__(self) -> str:
         return '(' + self.type.name + ', '  + self.string + ')'
 
 class Task:
-    def __init__(self) -> None:
-        self.task_type = 0
+    def __init__(self, task_type=0) -> None:
+        self.task_type : Task_type = task_type
         self.keywords : list[str] = []
     
     def __str__(self) -> str:
@@ -410,6 +410,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         room.type = KeywordType.ROOM
         room.string = ctx.getChild(5).getText()
         self.tasks[-1].keywords.append(room)
+
+        return None
         
     # Visit a parse tree produced by gpsrParser#from_beacon_to_room_indirect.
     def visitFrom_beacon_to_room_indirect(self, ctx:gpsrParser.From_beacon_to_room_indirectContext):
@@ -426,6 +428,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         room.type = KeywordType.ROOM
         room.string = ctx.getChild(7).getChild(1).getText()
         self.tasks[-1].keywords.append(room)
+
+        return None
     
     # Visit a parse tree produced by gpsrParser#from_beacon_to_where.
     def visitFrom_beacon_to_where(self, ctx:gpsrParser.From_beacon_to_whereContext):
@@ -437,6 +441,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         beacon.type = KeywordType.BEACON
         beacon.string = ctx.getChild(0).getChild(2).getText()
         self.tasks[-1].keywords.append(beacon)
+
+        return None
 
 
     """

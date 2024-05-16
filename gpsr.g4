@@ -49,7 +49,7 @@ cmancmd
     | vbcleanup 'the' Room
     | vbtakeout 'the' garbage
     ;
-cmanobjsrc : 'from the' Placement;
+cmanobjsrc : 'from' 'the' Placement;
 
 /* Find objects */
 fndobj
@@ -135,7 +135,7 @@ phpeopler  : phpeople 'in' 'the' Room;
 pgenders : 'man' | 'woman' | 'boy' | 'girl';
 pgenderp : 'men' | 'women' | 'boys' | 'girls' | 'male' | 'female';
 pose     : 'sitting' | 'standing' | 'lying' 'down';
-abspos   : 'left most' | 'right most';
+abspos   : 'left' 'most' | 'right' 'most';
 relpos   : 'at' 'the' 'left' 'of' | 'at' 'the' 'right' 'of' | 'on' 'top' 'of' | 'above' | 'behind' | 'under';
 garbage  : 'litter' | 'garbage' | 'trash' | 'waste' | 'debris' | 'junk';
 luggage  : 'bag' | 'baggage' | 'valise' | 'suitcase' | 'trolley';
@@ -240,21 +240,21 @@ Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining' 'table' | 'storage'
 
 /* Names */
 Name
-    : 'Alex'
-    | 'Charlie'
-    | 'Francis'
-    | 'James'
-    | 'John'
-    | 'Michael'
-    | 'Robert'
-    | 'Robin'
-    | 'Skyler'
-    | 'William'
-    | 'Elizabeth'
-    | 'Jennifer'
-    | 'Linda'
-    | 'Mary'
-    | 'Patricia'
+    : 'alex'
+    | 'charlie'
+    | 'francis'
+    | 'james'
+    | 'john'
+    | 'michael'
+    | 'robert'
+    | 'robin'
+    | 'skyler'
+    | 'william'
+    | 'elizabeth'
+    | 'jennifer'
+    | 'linda'
+    | 'mary'
+    | 'patricia'
     ;
 
 // Question
