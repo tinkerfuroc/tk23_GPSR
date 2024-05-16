@@ -19,4 +19,7 @@ def parse(s: str):
 
 
 if __name__ == '__main__':
-    print(parse('meet Linda at the sink, follow her and go to the kitchen')[0])
+    print(parse('meet linda at the sink, follow her and go to the kitchen')[0])
+    while True:
+        command = input()
+        print(parse(command)[0])
