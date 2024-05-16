@@ -33,3 +33,45 @@ class gpsrCustomVisitor(gpsrVisitor):
         super.__init__()
         self.tasks = []
     
+    # Visit a parse tree produced by gpsrParser#from_beacon_to_room.
+    def visitFrom_beacon_to_room(self, ctx:gpsrParser.From_beacon_to_roomContext):
+        task = Task()
+        task.task_type = Task_type.FOLLOW
+        self.tasks.append(task)
+        
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(3).getText()
+        self.tasks[-1].keywords.append(beacon)
+        
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(5).getText()
+        self.tasks[-1].keywords.append(room)
+        
+    # Visit a parse tree produced by gpsrParser#from_beacon_to_room_indirect.
+    def visitFrom_beacon_to_room_indirect(self, ctx:gpsrParser.From_beacon_to_room_indirectContext):
+        task = Task()
+        task.task_type = Task_type.FOLLOW
+        self.tasks.append(task)
+        
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(3).getText()
+        self.tasks[-1].keywords.append(beacon)
+        
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(7).getChild(1).getText()
+        self.tasks[-1].keywords.append(room)
+    
+    # Visit a parse tree produced by gpsrParser#from_beacon_to_where.
+    def visitFrom_beacon_to_where(self, ctx:gpsrParser.From_beacon_to_whereContext):
+        task = Task()
+        task.task_type = Task_type.FOLLOW
+        self.tasks.append(task)
+        
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(0).getChild(2).getText()
+        self.tasks[-1].keywords.append(beacon)
