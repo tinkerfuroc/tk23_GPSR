@@ -403,49 +403,36 @@ class gpsrCustomVisitor(gpsrVisitor):
     """
     # Visit a parse tree produced by gpsrParser#from_beacon_to_room.
     def visitFrom_beacon_to_room(self, ctx:gpsrParser.From_beacon_to_roomContext):
-        task = Task()
-        task.task_type = Task_type.FOLLOW
+        task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
         
-        beacon = Keyword()
-        beacon.type = KeywordType.BEACON
-        beacon.string = ctx.getChild(3).getText()
+        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
         self.tasks[-1].keywords.append(beacon)
         
-        room = Keyword()
-        room.type = KeywordType.ROOM
-        room.string = ctx.getChild(5).getText()
+        room = Keyword(KeywordType.ROOM, ctx.getChild(7).getText())
         self.tasks[-1].keywords.append(room)
 
         return None
         
     # Visit a parse tree produced by gpsrParser#from_beacon_to_room_indirect.
     def visitFrom_beacon_to_room_indirect(self, ctx:gpsrParser.From_beacon_to_room_indirectContext):
-        task = Task()
-        task.task_type = Task_type.FOLLOW
+        task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
         
-        beacon = Keyword()
-        beacon.type = KeywordType.BEACON
-        beacon.string = ctx.getChild(3).getText()
+        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
         self.tasks[-1].keywords.append(beacon)
         
-        room = Keyword()
-        room.type = KeywordType.ROOM
-        room.string = ctx.getChild(7).getChild(1).getText()
+        room = Keyword(KeywordType.ROOM, ctx.getChild(8).getChild(2).getText())
         self.tasks[-1].keywords.append(room)
 
         return None
     
     # Visit a parse tree produced by gpsrParser#from_beacon_to_where.
     def visitFrom_beacon_to_where(self, ctx:gpsrParser.From_beacon_to_whereContext):
-        task = Task()
-        task.task_type = Task_type.FOLLOW
+        task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
         
-        beacon = Keyword()
-        beacon.type = KeywordType.BEACON
-        beacon.string = ctx.getChild(0).getChild(2).getText()
+        beacon = Keyword(KeywordType.BEACON, ctx.getChild(0).getChild(3).getText())
         self.tasks[-1].keywords.append(beacon)
 
         return None
@@ -456,21 +443,14 @@ class gpsrCustomVisitor(gpsrVisitor):
     """
     # Visit a parse tree produced by gpsrParser#beacon_to_room.
     def visitBeacon_to_room(self, ctx:gpsrParser.Beacon_to_roomContext):
-        task = Task()
-        task.task_type = Task_type.FOLLLOW_OUT
+        task = Task(Task_type.FOLLLOW_OUT)
         self.tasks.append(task)
         
-        name = Keyword()
-        name.type = KeywordType.NAME
-        name.string = ctx.getChild(0).getText()
+        name = Keyword(KeywordType.NAME, ctx.getChild(1).getText())
 
-        beacon = Keyword()
-        beacon.type = KeywordType.BEACON
-        beacon.string = ctx.getChild(1).getText()
+        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
 
-        room = Keyword()
-        room.type = KeywordType.BEACON
-        room.string = ctx.getChild(ctx.getChildCount()-1).getChild(1).getText()
+        room = Keyword(KeywordType.BEACON, ctx.getChild(ctx.getChildCount()-1).getChild(3).getText())
 
         self.tasks[-1].keywords.append(name)
         self.tasks[-1].keywords.append(beacon)
@@ -480,18 +460,12 @@ class gpsrCustomVisitor(gpsrVisitor):
     
     # Visit a parse tree produced by gpsrParser#beacon_to_back.
     def visitBeacon_to_back(self, ctx:gpsrParser.Beacon_to_backContext):
-        task = Task()
-        task.task_type = Task_type.FOLLLOW_OUT
+        task = Task(Task_type.FOLLLOW_OUT)
         self.tasks.append(task)
         
-        name = Keyword()
-        name.type = KeywordType.NAME
-        name.string = ctx.getChild(0).getText()
+        name = Keyword(KeywordType.NAME, ctx.getChild(1).getText())
 
-        beacon = Keyword()
-        beacon.type = KeywordType.BEACON
-        beacon.string = ctx.getChild(1).getText()
-
+        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
 
         self.tasks[-1].keywords.append(name)
         self.tasks[-1].keywords.append(beacon)
