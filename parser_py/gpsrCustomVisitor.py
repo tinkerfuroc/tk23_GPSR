@@ -1,5 +1,9 @@
-from gpsrVisitor import *
-from gpsrParser import gpsrParser
+if "." in __name__:
+    from .gpsrVisitor import *
+    from .gpsrParser import gpsrParser
+else:
+    from gpsrVisitor import *
+    from gpsrParser import gpsrParser
 import enum
 
 class Task_type(enum.Enum):

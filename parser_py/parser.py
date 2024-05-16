@@ -1,7 +1,12 @@
 from antlr4 import *
-from gpsrLexer import gpsrLexer
-from gpsrParser import gpsrParser
-from gpsrCustomVisitor import gpsrCustomVisitor
+if '.' in __name__:
+    from .gpsrLexer import gpsrLexer
+    from .gpsrParser import gpsrParser
+    from .gpsrCustomVisitor import gpsrCustomVisitor
+else:
+    from gpsrLexer import gpsrLexer
+    from gpsrParser import gpsrParser
+    from gpsrCustomVisitor import gpsrCustomVisitor
 
 # parse
 
