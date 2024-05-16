@@ -23,7 +23,7 @@ def parse(s: str, debug=False):
 
 
 if __name__ == '__main__':
-    print(parse('meet linda at the sink, follow her and go to the kitchen', True)[0])
+    print(parse('navigate to the bed, meet alex, and follow him', True)[0])
     while True:
         command = input()
         print(parse(command, True)[0])
