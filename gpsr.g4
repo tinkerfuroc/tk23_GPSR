@@ -53,12 +53,12 @@ cmanobjsrc : 'from the' Placement;
 
 /* Find objects */
 fndobj
-    : 'Tell me how many' Object 'there are on the' Placement
+    : 'tell me how many' Object 'there are on the' Placement
     | vbfind 'the' Object 'in the' Room
     | vbfind 'the' Object_alike_obfuscated 'in the' Room
-    | 'Tell me how many' Category 'there are on the' Placement
-    | 'Tell me what\'s the' oprop 'object on the' Placement
-    | 'Tell me what\'s the' oprop Category 'on the' Placement
+    | 'tell me how many' Category 'there are on the' Placement
+    | 'tell me what\'s the' oprop 'object on the' Placement
+    | 'tell me what\'s the' oprop Category 'on the' Placement
     | vbfind 'the' Category 'in the' Room
     | 'tell me which are the three' oprop 'objects' 'on the' Placement
     | 'tell me which are the three' oprop Category 'on the' Placement
@@ -70,12 +70,12 @@ fndppl
     : talk 'to' whoWhere                                    # talk_to_whowhere
     | findp 'in the' Room 'and' talk                        # find_talk_in_room
     | goroom Comma? findp Comma? 'and' talk                 # go_room_talk
-    | 'Tell me the name of the person at the' Beacon        # tell_name_beacon
-    | 'Tell me the gender of the person at the' Beacon      # tell_gender_beacon
-    | 'Tell me the pose of the person at the' Beacon        # tell_pose_beacon
-    | 'Tell me the name of the person in the' Room          # tell_name_room
-    | 'Tell me the gender of the person in the' Room        # tell_gender_room
-    | 'Tell me the pose of the person in the' Room          # tell_pose_room
+    | 'tell me the name of the person at the' Beacon        # tell_name_beacon
+    | 'tell me the gender of the person at the' Beacon      # tell_gender_beacon
+    | 'tell me the pose of the person at the' Beacon        # tell_pose_beacon
+    | 'tell me the name of the person in the' Room          # tell_name_room
+    | 'tell me the gender of the person in the' Room        # tell_gender_room
+    | 'tell me the pose of the person in the' Room          # tell_pose_room
     | 'tell me how many people in the' Room 'are' pgenderp  # tell_gender_number
     | 'tell me how many people in the' Room 'are' pose      # tell_pose_number
     ;
@@ -201,10 +201,10 @@ vbfollow : 'follow';
 
 /* Polite */
 polite
-    : 'Please'
-    | 'Could you'
-    | 'Robot please'
-    | 'Could you please'
+    : 'please'
+    | 'could you'
+    | 'robot please'
+    | 'could you please'
     ;
 
 
@@ -240,21 +240,21 @@ Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage bo
 
 /* Names */
 Name
-    : 'Alex'
-    | 'Charlie'
-    | 'Francis'
-    | 'James'
-    | 'John'
-    | 'Michael'
-    | 'Robert'
-    | 'Robin'
-    | 'Skyler'
-    | 'William'
-    | 'Elizabeth'
-    | 'Jennifer'
-    | 'Linda'
-    | 'Mary'
-    | 'Patricia'
+    : 'alex'
+    | 'charlie'
+    | 'francis'
+    | 'james'
+    | 'john'
+    | 'michael'
+    | 'robert'
+    | 'robin'
+    | 'skyler'
+    | 'william'
+    | 'elizabeth'
+    | 'jennifer'
+    | 'linda'
+    | 'mary'
+    | 'patricia'
     ;
 
 // Question
