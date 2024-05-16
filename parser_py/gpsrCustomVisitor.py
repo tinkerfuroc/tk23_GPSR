@@ -11,6 +11,8 @@ class Task_type(enum.Enum):
     MANIPULATION = 6
     COMPLEX_MANIPULATION = 7
     PARTY_HOST = 8
+    IDENTIFY = 9    # alternatives of fndppl that involve recognizing traits
+
 
 class KeywordType(enum.Enum):
     ROOM = 0
@@ -20,17 +22,19 @@ class KeywordType(enum.Enum):
     GESTURE = 4
     GENDER = 5
     POSE = 6
+    NAME = 7
 
 
 class Keyword:
     def __init__(self) -> None:
         self.type = 0
+        # For task type IDENTIFY, this can be left blank if the task is to
         self.string = ""
 
 class Task:
     def __init__(self) -> None:
         self.task_type = 0
-        self.keywords = []
+        self.keywords : list[str] = []
 
 
 class gpsrCustomVisitor(gpsrVisitor):
@@ -38,8 +42,9 @@ class gpsrCustomVisitor(gpsrVisitor):
         super.__init__()
         self.tasks : list[Task] = []
     
-
-
+    """
+    FIND PEOPLE
+    """
     # Visit a parse tree produced by gpsrParser#talk_to_whowhere.
     def visitTalk_to_whowhere(self, ctx:gpsrParser.Talk_to_whowhereContext):
         task = Task()
@@ -82,6 +87,171 @@ class gpsrCustomVisitor(gpsrVisitor):
         self.visit(ctx.getChild(2))     # talk
         return None
 
+    """
+    TASKS WE CANNOT DO IN FIND PEOPLE
+    """
+    # Visit a parse tree produced by gpsrParser#tell_name_beacon.
+    def visitTell_name_beacon(self, ctx:gpsrParser.Tell_name_beaconContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        name = Keyword()
+        name.type = KeywordType.NAME
+        name.string = ""
+
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(name)
+        self.tasks[-1].keywords.append(beacon)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_gender_beacon.
+    def visitTell_gender_beacon(self, ctx:gpsrParser.Tell_gender_beaconContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        gender = Keyword()
+        gender.type = KeywordType.GENDER
+        gender.string = ""
+
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(gender)
+        self.tasks[-1].keywords.append(beacon)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_pose_beacon.
+    def visitTell_pose_beacon(self, ctx:gpsrParser.Tell_pose_beaconContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        pose = Keyword()
+        pose.type = KeywordType.POSE
+        pose.string = ""
+
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(pose)
+        self.tasks[-1].keywords.append(beacon)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_name_room.
+    def visitTell_name_room(self, ctx:gpsrParser.Tell_name_roomContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        name = Keyword()
+        name.type = KeywordType.NAME
+        name.string = ""
+
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(name)
+        self.tasks[-1].keywords.append(room)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_gender_room.
+    def visitTell_gender_room(self, ctx:gpsrParser.Tell_gender_roomContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        gender = Keyword()
+        gender.type = KeywordType.GENDER
+        gender.string = ""
+
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(gender)
+        self.tasks[-1].keywords.append(room)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_pose_room.
+    def visitTell_pose_room(self, ctx:gpsrParser.Tell_pose_roomContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        pose = Keyword()
+        pose.type = KeywordType.POSE
+        pose.string = ""
+
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(pose)
+        self.tasks[-1].keywords.append(room)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_gender_number.
+    def visitTell_gender_number(self, ctx:gpsrParser.Tell_gender_numberContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        gender = Keyword()
+        gender.type = KeywordType.GENDER
+        gender.string = ctx.getChild(1).getText()
+
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(room)
+        self.tasks[-1].keywords.append(gender)
+
+        return None
+
+
+    # Visit a parse tree produced by gpsrParser#tell_pose_number.
+    def visitTell_pose_number(self, ctx:gpsrParser.Tell_pose_numberContext):
+        task = Task()
+        task.task_type = Task_type.IDENTIFY
+        self.tasks.append(task)
+
+        pose = Keyword()
+        pose.type = KeywordType.POSE
+        pose.string = ctx.getChild(1).getText()
+
+        room = Keyword()
+        room.type = KeywordType.ROOM
+        room.string = ctx.getChild(0).getText()
+
+        self.tasks[-1].keywords.append(room)
+        self.tasks[-1].keywords.append(pose)
+
+        return None
+
+    """
+    UTILITY PARSERS
+    """
     # Visit a parse tree produced by gpsrParser#answer_question.
     def visitAnswer_question(self, ctx:gpsrParser.Answer_questionContext):
         answer = Keyword()
@@ -148,6 +318,9 @@ class gpsrCustomVisitor(gpsrVisitor):
 
         return None
 
+    """
+    FOLLOW
+    """
     # Visit a parse tree produced by gpsrParser#from_beacon_to_room.
     def visitFrom_beacon_to_room(self, ctx:gpsrParser.From_beacon_to_roomContext):
         task = Task()
@@ -190,3 +363,90 @@ class gpsrCustomVisitor(gpsrVisitor):
         beacon.type = KeywordType.BEACON
         beacon.string = ctx.getChild(0).getChild(2).getText()
         self.tasks[-1].keywords.append(beacon)
+
+
+    """
+    FOLLOWOUT
+    """
+    # Visit a parse tree produced by gpsrParser#beacon_to_room.
+    def visitBeacon_to_room(self, ctx:gpsrParser.Beacon_to_roomContext):
+        task = Task()
+        task.task_type = Task_type.FOLLLOW_OUT
+        self.tasks.append(task)
+        
+        name = Keyword()
+        name.type = KeywordType.NAME
+        name.string = ctx.getChild(0).getText()
+
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(1).getText()
+
+        room = Keyword()
+        room.type = KeywordType.BEACON
+        room.string = ctx.getChild(ctx.getChildCount()-1).getChild(1).getText()
+
+        self.tasks[-1].keywords.append(name)
+        self.tasks[-1].keywords.append(beacon)
+        self.tasks[-1].keywords.append(room)
+
+        return None
+    
+    # Visit a parse tree produced by gpsrParser#beacon_to_back.
+    def visitBeacon_to_back(self, ctx:gpsrParser.Beacon_to_backContext):
+        task = Task()
+        task.task_type = Task_type.FOLLLOW_OUT
+        self.tasks.append(task)
+        
+        name = Keyword()
+        name.type = KeywordType.NAME
+        name.string = ctx.getChild(0).getText()
+
+        beacon = Keyword()
+        beacon.type = KeywordType.BEACON
+        beacon.string = ctx.getChild(1).getText()
+
+
+        self.tasks[-1].keywords.append(name)
+        self.tasks[-1].keywords.append(beacon)
+        self.tasks[-1].keywords.append(beacon) # follow and then guide back so destination is starting point
+
+        return None
+
+    """
+    ALL THE TASKS WE CANNOT DO
+    """
+    # Visit a parse tree produced by gpsrParser#fndobj.
+    def visitFndobj(self, ctx:gpsrParser.FndobjContext):
+        task = Task()
+        task.task_type = Task_type.FIND_OBJECT
+        self.tasks.append(task)
+        return None
+    
+    # Visit a parse tree produced by gpsrParser#incomplete.
+    def visitIncomplete(self, ctx:gpsrParser.IncompleteContext):
+        task = Task()
+        task.task_type = Task_type.FIND_OBJECT
+        self.tasks.append(task)
+        return None
+    
+    # Visit a parse tree produced by gpsrParser#man.
+    def visitMan(self, ctx:gpsrParser.ManContext):
+        task = Task()
+        task.task_type = Task_type.MANIPULATION
+        self.tasks.append(task)
+        return None
+
+    # Visit a parse tree produced by gpsrParser#complexman.
+    def visitComplexman(self, ctx:gpsrParser.ComplexmanContext):
+        task = Task()
+        task.task_type = Task_type.COMPLEX_MANIPULATION
+        self.tasks.append(task)
+        return None
+
+    # Visit a parse tree produced by gpsrParser#partyhost.
+    def visitPartyhost(self, ctx:gpsrParser.PartyhostContext):
+        task = Task()
+        task.task_type = Task_type.PARTY_HOST
+        self.tasks.append(task)
+        return None
