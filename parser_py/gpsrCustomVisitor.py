@@ -58,8 +58,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
-        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(3).getText()))
-        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(5).getText()))
+        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
+        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(7).getText()))
         self.tasks.append(task)
         return self.visitChildren(ctx)
     
@@ -69,8 +69,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
-        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(3).getText()))
-        beacon2 = self.visit(ctx.getChild(5))
+        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
+        beacon2 = self.visit(ctx.getChild(6))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon2))
         self.tasks.append(task)
 
@@ -82,7 +82,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
-        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(3).getText()))
+        beacon = self.visit(ctx.getChild(0))
+        task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon))
         beacon2 = self.visit(ctx.getChild(ctx.getChildCount() - 1))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon2))
         self.tasks.append(task)
@@ -94,7 +95,7 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
-        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(3).getText()))
+        task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
         beacon2 = self.visit(ctx.getChild(ctx.getChildCount() - 1))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon2))
         self.tasks.append(task)
@@ -103,17 +104,17 @@ class gpsrCustomVisitor(gpsrVisitor):
 
     # Visit a parse tree produced by gpsrParser#guideto.
     def visitGuideto(self, ctx:gpsrParser.GuidetoContext):
-        return ctx.getChild(3).getText()
+        return ctx.getChild(4).getText()
 
 
     # Visit a parse tree produced by gpsrParser#gobeacon.
     def visitGobeacon(self, ctx:gpsrParser.GobeaconContext):
-        return ctx.getChild(2).getText()
+        return ctx.getChild(3).getText()
 
 
     # Visit a parse tree produced by gpsrParser#gdwhere.
     def visitGdwhere(self, ctx:gpsrParser.GdwhereContext):
-        return ctx.getChild(5).getText()
+        return ctx.getChild(6).getText()
 
 
     """
@@ -126,8 +127,10 @@ class gpsrCustomVisitor(gpsrVisitor):
         self.tasks.append(task)
 
         self.visit(ctx.getChild(0)) # visit 'talk'
-        self.visit(ctx.getChild(1)) # visit 'whoWhere'
+        self.visit(ctx.getChild(2)) # visit 'whoWhere'
         return None
+    
+
     
     # Visit a parse tree produced by gpsrParser#find_talk_in_room.
     def visitFind_talk_in_room(self, ctx:gpsrParser.Find_talk_in_roomContext):
@@ -139,10 +142,10 @@ class gpsrCustomVisitor(gpsrVisitor):
 
         room = Keyword()
         room.type = KeywordType.ROOM
-        room.string = ctx.getChild(1).getText()
+        room.string = ctx.getChild(3).getText()
         self.tasks[-1].keywords.append(room)
 
-        self.visit(ctx.getChild(2))
+        self.visit(ctx.getChild(5))
         return None
     
     # Visit a parse tree produced by gpsrParser#go_room_talk.
@@ -151,14 +154,17 @@ class gpsrCustomVisitor(gpsrVisitor):
         task.task_type = Task_type.FIND_PEOPLE
         self.tasks.append(task)
 
-        self.visit(ctx.getChild(1))     #  findp
+        if ctx.getChild(1).getText() == ',':
+            self.visit(ctx.getChild(2))     #  findp
+        else:
+            self.visit(ctx.getChild(1))
 
         room = Keyword()
         room.type = KeywordType.ROOM
-        room.string = ctx.getChild(0).getChild(2).getText()
+        room.string = ctx.getChild(0).getChild(3).getText()
         self.tasks[-1].keywords.append(room)
 
-        self.visit(ctx.getChild(2))     # talk
+        self.visit(ctx.getChild(ctx.getChildCount() - 1))     # talk
         return None
 
     """
@@ -349,11 +355,11 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitWhoWhere(self, ctx:gpsrParser.WhoWhereContext):
         gesture = Keyword()
         gesture.type = KeywordType.GESTURE
-        gesture.string = ctx.getChild(0).getText()
+        gesture.string = ctx.getChild(2).getText()
 
         room = Keyword()
         room.type = KeywordType.ROOM
-        room.string = ctx.getChild(1).getText()
+        room.string = ctx.getChild(4).getText()
 
         self.tasks[-1].keywords.append(gesture)
         self.tasks[-1].keywords.append(room)
@@ -364,7 +370,7 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitFind_gender(self, ctx:gpsrParser.Find_genderContext):
         gender = Keyword()
         gender.type = KeywordType.GENDER
-        gender.string = ctx.getChild(1).getText()
+        gender.string = ctx.getChild(2).getText()
 
         self.tasks[-1].keywords.append(gender)
 
@@ -375,7 +381,7 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitFind_gesture(self, ctx:gpsrParser.Find_gestureContext):
         gesture = Keyword()
         gesture.type = KeywordType.GESTURE
-        gesture.string = ctx.getChild(1).getText()
+        gesture.string = ctx.getChild(3).getText()
 
         self.tasks[-1].keywords.append(gesture)
 
@@ -386,7 +392,7 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitFind_pose(self, ctx:gpsrParser.Find_poseContext):
         pose = Keyword()
         pose.type = KeywordType.POSE
-        pose.string = ctx.getChild(1).getText()
+        pose.string = ctx.getChild(3).getText()
 
         self.tasks[-1].keywords.append(pose)
 
