@@ -28,7 +28,9 @@ def parse(s: str, debug=False):
 
 
 if __name__ == '__main__':
-    print(parse('navigate to the bed, meet alex, and follow him', True)[0])
+    print(parse('meet robert at the dishwasher and follow him', True)[0])
+    # print(parse('greet john at the sofa and take him to his cab', True)[0])
+    print(parse('robot please go to the desk meet robin and accompany her', True)[0])
     while True:
         command = input()
         print(parse(command, True)[0])
