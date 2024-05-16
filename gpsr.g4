@@ -201,10 +201,10 @@ vbfollow : 'follow';
 
 /* Polite */
 polite
-    : 'Please'
-    | 'Could' 'you'
-    | 'Robot' 'please'
-    | 'Could' 'you' 'please'
+    : 'please'
+    | 'could' 'you'
+    | 'robot' 'please'
+    | 'could' 'you' 'please'
     ;
 
 
@@ -224,7 +224,7 @@ Object_known : Object;
 Object_alike_obfuscated: Category;
 Object_obfuscated: Category;
 
-Pron: 'he' | 'she' | 'it' | 'mine' | 'yours' | 'theirs' | 'my' | 'your' | 'their';
+Pron: 'he' | 'she' | 'it' | 'his' | 'her' | 'its' | 'mine' | 'yours' | 'theirs' | 'my' | 'your' | 'their';
 
 /* Gestures */
 Gesture : 'waving' | 'raising' 'their' 'left' 'arm' | 'raising' 'their' 'right' 'arm' 
@@ -235,7 +235,7 @@ Room      : 'bedroom' | 'dining' 'room' | 'living' 'room' | 'kitchen';
 Beacon    : Location_except_room;
 Placement : Location_except_room;
 Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining' 'table' | 'storage' 'box'
-                     | 'wine' 'rack' | 'sofa' | 'side' 'table' | 'TV' 'cabinet' | 'storage' 'table'
+                     | 'wine' 'rack' | 'sofa' | 'side' 'table' | 'tv' 'cabinet' | 'storage' 'table'
                      | 'sink' | 'dishwasher';
 
 /* Names */
