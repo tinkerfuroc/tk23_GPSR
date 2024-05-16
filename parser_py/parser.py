@@ -4,10 +4,11 @@ from gpsrParser import gpsrParser
 from gpsrCustomVisitor import gpsrCustomVisitor
 
 def parse(s: str):
-    lexer = gpsrLexer(s)
+    inputstream = InputStream(s)
+    lexer = gpsrLexer(inputstream)
     stream = CommonTokenStream(lexer)
     parser = gpsrParser(stream)
-    tree = parser.start_()
+    tree = parser.instruction()
     if parser.getNumberOfSyntaxErrors() > 0:
         print("syntax errors")
         return None
@@ -18,4 +19,4 @@ def parse(s: str):
 
 
 if __name__ == '__main__':
-    print(parse(''))
+    print(parse('meet Linda at the sink, follow her and go to the kitchen')[0])

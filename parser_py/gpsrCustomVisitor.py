@@ -32,15 +32,21 @@ class Keyword:
         # For task type IDENTIFY, this can be left blank if the task is to
         self.string = string
 
+    def __str__(self) -> str:
+        return '(' + self.type.name + ', '  + self.string + ')'
+
 class Task:
     def __init__(self) -> None:
         self.task_type = 0
         self.keywords : list[str] = []
+    
+    def __str__(self) -> str:
+        return self.task_type.name + ' [' + ','.join([str(i) for i in self.keywords]) + ']'
 
 
 class gpsrCustomVisitor(gpsrVisitor):
     def __init__(self):
-        super.__init__()
+        super(gpsrVisitor, self).__init__()
         self.tasks = []
 
 
