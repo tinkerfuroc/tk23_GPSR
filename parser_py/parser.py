@@ -3,9 +3,11 @@ from gpsrLexer import gpsrLexer
 from gpsrParser import gpsrParser
 from gpsrCustomVisitor import gpsrCustomVisitor
 
-def parse(s: str):
+def parse(s: str, debug=False):
     inputstream = InputStream(s)
     lexer = gpsrLexer(inputstream)
+    if not debug:
+        lexer.removeErrorListeners()
     stream = CommonTokenStream(lexer)
     parser = gpsrParser(stream)
     tree = parser.instruction()
@@ -19,7 +21,7 @@ def parse(s: str):
 
 
 if __name__ == '__main__':
-    print(parse('meet linda at the sink, follow her and go to the kitchen')[0])
+    print(parse('meet linda at the sink, follow her and go to the kitchen', True)[0])
     while True:
         command = input()
-        print(parse(command)[0])
+        print(parse(command, True)[0])
