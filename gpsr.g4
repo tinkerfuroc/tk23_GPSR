@@ -13,9 +13,9 @@ main : fndppl | fndobj | guide | follow | followout | incomplete | man | complex
 
 // Rule for finding a specific (named) person
 findp
-    : vbfind 'a' pgenders
-    | vbfind 'a person' Gesture
-    | vbfind 'a person' pose
+    : vbfind 'a' pgenders           # find_gender
+    | vbfind 'a person' Gesture     # find_gesture
+    | vbfind 'a person' pose        # find_pose
     ;
 // A named or described person in the given place
 whoWhere : 'the person' Gesture 'in the' Room;
@@ -23,7 +23,7 @@ whoWhere : 'the person' Gesture 'in the' Room;
 /* Manipulation */
 man : deliver;
 deliver
-    : take 'and' vbplace 'it on the' Placement
+    : take 'and' vbplace 'it on the' Placement      
     | vbplace 'the' Object_known 'on the' Placement
     | vbbring 'me the' Object_known
     | vbdeliver 'the' Object_known 'to' someone
@@ -67,24 +67,24 @@ fndobj
 
 /* Find people */
 fndppl
-    : talk 'to' whoWhere
-    | findp 'in the' Room 'and' talk
-    | goroom Comma? findp Comma? 'and' talk
-    | 'Tell me the name of the person at the' Beacon
-    | 'Tell me the gender of the person at the' Beacon
-    | 'Tell me the pose of the person at the' Beacon
-    | 'Tell me the name of the person in the' Room
-    | 'Tell me the gender of the person in the' Room
-    | 'Tell me the pose of the person in the' Room
-    | 'tell me how many people in the' Room 'are' pgenderp
-    | 'tell me how many people in the' Room 'are' pose
+    : talk 'to' whoWhere                                    # talk_to_whowhere
+    | findp 'in the' Room 'and' talk                        # find_talk_in_room
+    | goroom Comma? findp Comma? 'and' talk                 # go_room_talk
+    | 'Tell me the name of the person at the' Beacon        # tell_name_beacon
+    | 'Tell me the gender of the person at the' Beacon      # tell_gender_beacon
+    | 'Tell me the pose of the person at the' Beacon        # tell_pose_beacon
+    | 'Tell me the name of the person in the' Room          # tell_name_room
+    | 'Tell me the gender of the person in the' Room        # tell_gender_room
+    | 'Tell me the pose of the person in the' Room          # tell_pose_room
+    | 'tell me how many people in the' Room 'are' pgenderp  # tell_gender_number
+    | 'tell me how many people in the' Room 'are' pose      # tell_pose_number
     ;
 
 /* Follow People */
 follow 
-    : vbfollow Name 'from the' Beacon 'to the' Room
-    | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest?
-    | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron
+    : vbfollow Name 'from the' Beacon 'to the' Room                 # from_beacon_to_room
+    | 'meet' Name 'at the' Beacon 'and' vbfollow Pron fllwdest?     # from_beacon_to_room_indirect
+    | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron        # from_beacon_to_where
     ;
 fllmeet
     : ('meet' Name) | 'find a person'
@@ -96,16 +96,16 @@ fllwdest
 /* Follow [& Guide] */
 guide : gdcmd;
 gdcmd
-    : vbguide Name 'from the' Beacon 'to the' Beacon
-    | 'meet' Name 'at the' Beacon 'and' guideto
-    | gobeacon Comma? 'meet' Name Comma? 'and' guideto
-    | vbguide Name 'to the' Beacon Comma? gdwhere
+    : vbguide Name 'from the' Beacon 'to the' Beacon        # beacon_to_beacon
+    | 'meet' Name 'at the' Beacon 'and' guideto             # beacon_to_beacon_guide_to
+    | gobeacon Comma? 'meet' Name Comma? 'and' guideto      # beacon_to_beacon_gobeacon_guideto
+    | vbguide Name 'to the' Beacon Comma? gdwhere           # beacon_to_beacon_gdwhere
     ;
 guideto : vbguide Pron 'to the' Beacon;
 gdwhere : 'you' ( 'may' | 'can' | 'will' ) 'find' Pron 'at the' Beacon;
 followout
-    : 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' goroom
-    | 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back'
+    : 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' goroom              # beacon_to_room
+    | 'meet' Name 'at the' Beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back' # beacon_to_back
     ;
 
 /* Incomplete commands */
@@ -169,12 +169,12 @@ delivme : vbdeliver 'it to me';
 delivto : vbdeliver 'it to' Name;
 delivat : vbdeliver 'it to' Name 'at the' Beacon;
 // speak
-talk : answer | speak;
-answer : 'answer a' Question;
-speak : vbspeak whattosay;
+talk : Answer | speak;
+Answer : 'answer a question';
+speak : vbspeak Whattosay;
 
 /* What to say */
-whattosay
+Whattosay
     : 'something about yourself'
     | 'the time'
     | 'what day is' ( 'today' | 'tomorrow' )
@@ -254,55 +254,55 @@ Name
     | 'Patricia'
     ;
 
-Question
-    : 'Who\'s the most handsome person in Canada?'
-    | 'How many time zones are there in Canada?'
-    | 'What\'s the longest street in the world?'
-    | 'How long is Yonge Street in Ontario?'
-    | 'What\'s the name of the bear cub exported from Canada to the London Zoo in 1915?'
-    | 'Where was the Blackberry Smartphone developed?'
-    | 'What is the world\'s largest coin?'
-    | 'In what year was Canada invaded by the USA for the first time?'
-    | 'What year was Canada invaded by the USA for the second time?'
-    | 'What country holds the record for the most gold medals at the Winter Olympics?'
-    | 'Who coined the term Beatlemania?'
-    | 'Why is Canada named Canada?'
-    | 'When was The Mounted Police formed?'
-    | 'When was The Royal Canadian Mounted Police formed?'
-    | 'How big is the RCMP?'
-    | 'What else is Montreal called?'
-    | 'Where is The Hotel de Glace located?'
-    | 'How many tons of ice are required to build The Hotel de Glace?'
-    | 'How many tons of snow are required to build The Hotel de Glace?'
-    | 'Can I visit the Hotel de Glace in summer?'
-    | 'Where is Canada\'s only desert?'
-    | 'How big is Canada\'s only desert?'
-    | 'Name 3 famous male Canadians.'
-    | 'Name 3 famous female Canadians.'
-    | 'What\'s the origin of the Comic Sans font?'
-    | 'What is a nanobot?'
-    | 'How small can a nanobot be?'
-    | 'Why wasn\'t Tron nominated for an award by The Motion Picture Academy?'
-    | 'Which was the first computer with a hard disk drive?'
-    | 'When was the first computer with a hard disk drive launched?'
-    | 'How big was the first hard disk drive?'
-    | 'What does CAPTCHA stands for?'
-    | 'What was the first computer bug?'
-    | 'Name all of the robots on Mars.'
-    | 'Who is the world\'s first android?'
-    | 'What is a Mechanical Knight?'
-    | 'What was the first computer in pass the Turing test?'
-    | 'What does Moravec\'s paradox state?'
-    | 'What is the AI knowledge engineering bottleneck?'
-    | 'Why is Elon Musk is worried about AI\'s impact on humanity?'
-    | 'Do you think robots are a threat to humanity?'
-    | 'What is a chatbot?'
-    | 'Are self-driving cars safe?'
-    | 'Who invented the compiler?'
-    | 'Who created the C Programming Language?'
-    | 'Who created the Python Programming Language?'
-    | 'Is Mark Zuckerberg a robot?'
-    | 'Who is the inventor of the Apple I microcomputer?'
-    | 'Who is considered to be the first computer programmer?'
-    | 'Which program do Jedi use to open PDF files?'
-    ;
+// Question
+//     : 'Who\'s the most handsome person in Canada?'
+//     | 'How many time zones are there in Canada?'
+//     | 'What\'s the longest street in the world?'
+//     | 'How long is Yonge Street in Ontario?'
+//     | 'What\'s the name of the bear cub exported from Canada to the London Zoo in 1915?'
+//     | 'Where was the Blackberry Smartphone developed?'
+//     | 'What is the world\'s largest coin?'
+//     | 'In what year was Canada invaded by the USA for the first time?'
+//     | 'What year was Canada invaded by the USA for the second time?'
+//     | 'What country holds the record for the most gold medals at the Winter Olympics?'
+//     | 'Who coined the term Beatlemania?'
+//     | 'Why is Canada named Canada?'
+//     | 'When was The Mounted Police formed?'
+//     | 'When was The Royal Canadian Mounted Police formed?'
+//     | 'How big is the RCMP?'
+//     | 'What else is Montreal called?'
+//     | 'Where is The Hotel de Glace located?'
+//     | 'How many tons of ice are required to build The Hotel de Glace?'
+//     | 'How many tons of snow are required to build The Hotel de Glace?'
+//     | 'Can I visit the Hotel de Glace in summer?'
+//     | 'Where is Canada\'s only desert?'
+//     | 'How big is Canada\'s only desert?'
+//     | 'Name 3 famous male Canadians.'
+//     | 'Name 3 famous female Canadians.'
+//     | 'What\'s the origin of the Comic Sans font?'
+//     | 'What is a nanobot?'
+//     | 'How small can a nanobot be?'
+//     | 'Why wasn\'t Tron nominated for an award by The Motion Picture Academy?'
+//     | 'Which was the first computer with a hard disk drive?'
+//     | 'When was the first computer with a hard disk drive launched?'
+//     | 'How big was the first hard disk drive?'
+//     | 'What does CAPTCHA stands for?'
+//     | 'What was the first computer bug?'
+//     | 'Name all of the robots on Mars.'
+//     | 'Who is the world\'s first android?'
+//     | 'What is a Mechanical Knight?'
+//     | 'What was the first computer in pass the Turing test?'
+//     | 'What does Moravec\'s paradox state?'
+//     | 'What is the AI knowledge engineering bottleneck?'
+//     | 'Why is Elon Musk is worried about AI\'s impact on humanity?'
+//     | 'Do you think robots are a threat to humanity?'
+//     | 'What is a chatbot?'
+//     | 'Are self-driving cars safe?'
+//     | 'Who invented the compiler?'
+//     | 'Who created the C Programming Language?'
+//     | 'Who created the Python Programming Language?'
+//     | 'Is Mark Zuckerberg a robot?'
+//     | 'Who is the inventor of the Apple I microcomputer?'
+//     | 'Who is considered to be the first computer programmer?'
+//     | 'Which program do Jedi use to open PDF files?'
+//     ;
