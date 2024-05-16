@@ -3,6 +3,8 @@ from gpsrLexer import gpsrLexer
 from gpsrParser import gpsrParser
 from gpsrCustomVisitor import gpsrCustomVisitor
 
+# parse
+
 def parse(s: str, debug=False):
     inputstream = InputStream(s)
     lexer = gpsrLexer(inputstream)
