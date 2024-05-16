@@ -1,4 +1,5 @@
 from gpsrVisitor import *
+from gpsrParser import gpsrParser
 import enum
 
 class Task_type(enum.Enum):

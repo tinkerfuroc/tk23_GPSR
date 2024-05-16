@@ -1,4 +1,3 @@
-from posixpath import lexists
 from antlr4 import *
 from gpsrLexer import gpsrLexer
 from gpsrParser import gpsrParser
