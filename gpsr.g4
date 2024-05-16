@@ -225,7 +225,13 @@ Object_known : Object;
 Object_alike_obfuscated: Category;
 Object_obfuscated: Category;
 
-Pron: 'he' | 'she' | 'it' | 'his' | 'her' | 'its' | 'mine' | 'yours' | 'theirs' | 'my' | 'your' | 'their';
+Pron
+    : 'he' | 'him' | 'his' | 'himself'
+    | 'she' | 'her' |'hers' | 'herself'
+    | 'it' | 'its' | 'itself'
+    | 'my' | 'mine' | 'your' | 'yours' 
+    | 'they' | 'them'| 'their' | 'theirs' 
+    ;
 
 /* Gestures */
 Gesture : 'waving' | 'raising their left arm' | 'raising their right arm' 
