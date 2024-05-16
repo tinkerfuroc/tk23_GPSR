@@ -58,6 +58,7 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
+        task.keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(7).getText()))
         self.tasks.append(task)
@@ -69,6 +70,7 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
+        task.keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
         beacon2 = self.visit(ctx.getChild(6))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon2))
@@ -81,6 +83,11 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitBeacon_to_beacon_gobeacon_guideto(self, ctx:gpsrParser.Beacon_to_beacon_gobeacon_guidetoContext):
         task = Task()
         task.task_type = Task_type.GUIDE
+
+        if ctx.getChild(2).getText() == 'meet':
+            task.keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(3).getText()))
+        else:
+            task.keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(2).getText()))
 
         beacon = self.visit(ctx.getChild(0))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon))
@@ -95,6 +102,7 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task()
         task.task_type = Task_type.GUIDE
 
+        task.keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=ctx.getChild(4).getText()))
         beacon2 = self.visit(ctx.getChild(ctx.getChildCount() - 1))
         task.keywords.append(Keyword(type=KeywordType.BEACON, string=beacon2))
@@ -406,6 +414,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
         
+        self.tasks[-1].keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
+
         beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
         self.tasks[-1].keywords.append(beacon)
         
@@ -419,6 +429,8 @@ class gpsrCustomVisitor(gpsrVisitor):
         task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
         
+        self.tasks[-1].keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
+
         beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
         self.tasks[-1].keywords.append(beacon)
         
@@ -431,6 +443,11 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitFrom_beacon_to_where(self, ctx:gpsrParser.From_beacon_to_whereContext):
         task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
+
+        if ctx.getChild(2).getText() == 'meet':
+            self.tasks[-1].keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(3).getText()))
+        else:
+            self.tasks[-1].keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(2).getText()))
         
         beacon = Keyword(KeywordType.BEACON, ctx.getChild(0).getChild(3).getText())
         self.tasks[-1].keywords.append(beacon)
