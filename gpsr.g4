@@ -55,7 +55,7 @@ cmanobjsrc : 'from' 'the' Placement;
 fndobj
     : 'tell' 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' Placement
     | vbfind 'the' Object 'in' 'the' Room
-    | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
+    // | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
     | 'tell' 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' Placement
     | 'tell' 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' Placement
     | 'tell' 'me' 'what\'s' 'the' oprop Category 'on' 'the' Placement
@@ -213,7 +213,7 @@ Comma : ',';
 /* ---------------------    xmls    -------------------------- */
 
 /* Object categories (giving the objects.xml)*/
-Category : 'food' | 'drinks' | 'cleaning' 'stuff' | 'object';
+Category : 'food' | 'drinks' | 'cleaning stuff' | 'object';
 
 /* Objects */
 Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dishsoap'
