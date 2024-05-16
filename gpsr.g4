@@ -44,10 +44,11 @@ cmancmd
     : vbbtake 'the' Object_known 'to' 'the' Placement
     | vbbring 'me' 'the' abspos 'object' cmanobjsrc
     | vbbring 'me' 'the' 'object' relpos 'the' Object cmanobjsrc
-    | vbbring 'me' 'the' oprop 'object' cmanobjsrc
+    // | vbbring 'me' 'the' oprop 'object' cmanobjsrc
     | vbbring 'me' 'the' oprop Category cmanobjsrc
     | vbcleanup 'the' Room
     | vbtakeout 'the' garbage
+    | vbbring 'the' Object 'from' 'the' (Room | Beacon) 'to' 'the' (Room | Beacon)
     ;
 cmanobjsrc : 'from' 'the' Placement;
 
@@ -55,7 +56,7 @@ cmanobjsrc : 'from' 'the' Placement;
 fndobj
     : 'tell' 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' Placement
     | vbfind 'the' Object 'in' 'the' Room
-    | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
+    // | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
     | 'tell' 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' Placement
     | 'tell' 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' Placement
     | 'tell' 'me' 'what\'s' 'the' oprop Category 'on' 'the' Placement
@@ -82,7 +83,7 @@ fndppl
 
 /* Follow People */
 follow 
-    : vbfollow Name 'from' 'the' Beacon 'to' 'the' Room                 # from_beacon_to_room
+    : vbfollow Name ('from' 'the' Beacon 'to' 'the' Room)?                 # from_beacon_to_room
     | 'meet' Name 'at' 'the' Beacon 'and' vbfollow Pron fllwdest?     # from_beacon_to_room_indirect
     | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron        # from_beacon_to_where
     ;
@@ -202,9 +203,9 @@ vbfollow : 'follow';
 /* Polite */
 polite
     : 'please'
-    | 'could' 'you'
-    | 'robot' 'please'
-    | 'could' 'you' 'please'
+    | 'could you'
+    | 'robot please'
+    | 'could you please'
     ;
 
 
@@ -213,7 +214,7 @@ Comma : ',';
 /* ---------------------    xmls    -------------------------- */
 
 /* Object categories (giving the objects.xml)*/
-Category : 'food' | 'drinks' | 'cleaning' 'stuff' | 'object';
+Category : 'food' | 'drinks' | 'cleaning stuff' | 'object';
 
 /* Objects */
 Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dishsoap'
@@ -224,18 +225,24 @@ Object_known : Object;
 Object_alike_obfuscated: Category;
 Object_obfuscated: Category;
 
-Pron: 'he' | 'she' | 'it' | 'his' | 'her' | 'its' | 'mine' | 'yours' | 'theirs' | 'my' | 'your' | 'their';
+Pron
+    : 'he' | 'him' | 'his' | 'himself'
+    | 'she' | 'her' |'hers' | 'herself'
+    | 'it' | 'its' | 'itself'
+    | 'my' | 'mine' | 'your' | 'yours' 
+    | 'they' | 'them'| 'their' | 'theirs' 
+    ;
 
 /* Gestures */
-Gesture : 'waving' | 'raising' 'their' 'left' 'arm' | 'raising' 'their' 'right' 'arm' 
-        | 'pointing' 'to' 'the' 'left' | 'pointing' 'to' 'the' 'right';
+Gesture : 'waving' | 'raising their left arm' | 'raising their right arm' 
+        | 'pointing to the left' | 'pointing to the right';
 
 /* Locations */
-Room      : 'bedroom' | 'dining' 'room' | 'living' 'room' | 'kitchen';
+Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen';
 Beacon    : Location_except_room;
 Placement : Location_except_room;
-Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining' 'table' | 'storage' 'box'
-                     | 'wine' 'rack' | 'sofa' | 'side' 'table' | 'tv' 'cabinet' | 'storage' 'table'
+Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage box'
+                     | 'wine rack' | 'sofa' | 'side table' | 'tv cabinet' | 'storage table'
                      | 'sink' | 'dishwasher';
 
 /* Names */

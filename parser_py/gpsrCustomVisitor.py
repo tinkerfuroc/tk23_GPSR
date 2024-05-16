@@ -416,11 +416,12 @@ class gpsrCustomVisitor(gpsrVisitor):
         
         self.tasks[-1].keywords.append(Keyword(type=KeywordType.NAME, string=ctx.getChild(1).getText()))
 
-        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
-        self.tasks[-1].keywords.append(beacon)
-        
-        room = Keyword(KeywordType.ROOM, ctx.getChild(7).getText())
-        self.tasks[-1].keywords.append(room)
+        if (ctx.getChildCount() > 2):
+            beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
+            self.tasks[-1].keywords.append(beacon)
+            
+            room = Keyword(KeywordType.ROOM, ctx.getChild(7).getText())
+            self.tasks[-1].keywords.append(room)
 
         return None
         
