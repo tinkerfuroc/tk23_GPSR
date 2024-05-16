@@ -405,12 +405,13 @@ class gpsrCustomVisitor(gpsrVisitor):
     def visitFrom_beacon_to_room(self, ctx:gpsrParser.From_beacon_to_roomContext):
         task = Task(Task_type.FOLLOW)
         self.tasks.append(task)
-        
-        beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
-        self.tasks[-1].keywords.append(beacon)
-        
-        room = Keyword(KeywordType.ROOM, ctx.getChild(7).getText())
-        self.tasks[-1].keywords.append(room)
+
+        if (ctx.getChildCount() > 2):
+            beacon = Keyword(KeywordType.BEACON, ctx.getChild(4).getText())
+            self.tasks[-1].keywords.append(beacon)
+            
+            room = Keyword(KeywordType.ROOM, ctx.getChild(7).getText())
+            self.tasks[-1].keywords.append(room)
 
         return None
         
