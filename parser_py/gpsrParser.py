@@ -4774,22 +4774,47 @@ class gpsrParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+
+        def getRuleIndex(self):
+            return gpsrParser.RULE_talk
+
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
+
+
+
+    class Answer_questionContext(TalkContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a gpsrParser.TalkContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
         def Answer(self):
             return self.getToken(gpsrParser.Answer, 0)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnswer_question" ):
+                return visitor.visitAnswer_question(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Speak_toContext(TalkContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a gpsrParser.TalkContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def speak(self):
             return self.getTypedRuleContext(gpsrParser.SpeakContext,0)
 
 
-        def getRuleIndex(self):
-            return gpsrParser.RULE_talk
-
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTalk" ):
-                return visitor.visitTalk(self)
+            if hasattr( visitor, "visitSpeak_to" ):
+                return visitor.visitSpeak_to(self)
             else:
                 return visitor.visitChildren(self)
-
 
 
 
@@ -4802,11 +4827,13 @@ class gpsrParser ( Parser ):
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [140]:
+                localctx = gpsrParser.Answer_questionContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 706
                 self.match(gpsrParser.Answer)
                 pass
             elif token in [124, 125]:
+                localctx = gpsrParser.Speak_toContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 707
                 self.speak()

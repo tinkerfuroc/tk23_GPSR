@@ -169,7 +169,10 @@ delivme : vbdeliver 'it to me';
 delivto : vbdeliver 'it to' Name;
 delivat : vbdeliver 'it to' Name 'at the' Beacon;
 // speak
-talk : Answer | speak;
+talk 
+    : Answer    # answer_question 
+    | speak     # speak_to
+    ;
 Answer : 'answer a question';
 speak : vbspeak Whattosay;
 

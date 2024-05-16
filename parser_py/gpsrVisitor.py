@@ -359,8 +359,13 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#talk.
-    def visitTalk(self, ctx:gpsrParser.TalkContext):
+    # Visit a parse tree produced by gpsrParser#answer_question.
+    def visitAnswer_question(self, ctx:gpsrParser.Answer_questionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#speak_to.
+    def visitSpeak_to(self, ctx:gpsrParser.Speak_toContext):
         return self.visitChildren(ctx)
 
 
