@@ -294,6 +294,7 @@ Name
     | 'linda'
     | 'mary'
     | 'patricia'
+    | 'someone'
     ;
 
 // Question

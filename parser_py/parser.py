@@ -30,9 +30,9 @@ def parse(s: str, debug=False):
 
 
 if __name__ == '__main__':
-    # print(parse('meet robert at the dishwasher and follow him', True)[0])
-    # # print(parse('greet john at the sofa and take him to his cab', True)[0])
-    # print(parse('contact patricia at the side table and introduce it to william at the tv cabinet', True)[0])
+    print(parse('meet robert at the dishwasher and follow him', True)[0])
+    print(parse('greet john at the couch and take him to his cab', True)[0])
+    print(parse('contact patricia at the side table and introduce it to william at the tv cabinet', True)[0])
     while True:
         command = input()
         print(parse(command.lower(), True)[0])
