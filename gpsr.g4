@@ -23,15 +23,15 @@ whoWhere : 'the' 'person' Gesture 'in' 'the' Room;
 /* Manipulation */
 man : deliver;
 deliver
-    : take 'and' vbplace 'it' 'on' 'the' Placement      
-    | vbplace 'the' Object_known 'on' 'the' Placement
-    | vbbring 'me' 'the' Object_known
-    | vbdeliver 'the' Object_known 'to' someone
-    | takefrom 'and' vbplace 'it' 'on' 'the' Placement
+    : take 'and' vbplace 'it' 'on' 'the' placement      
+    | vbplace 'the' object_known 'on' 'the' placement
+    | vbbring 'me' 'the' object_known
+    | vbdeliver 'the' object_known 'to' someone
+    | takefrom 'and' vbplace 'it' 'on' 'the' placement
     | goplace Comma? vbfind 'the' Object 'to' someone
     | goplace Comma? vbfind 'the' Object Comma? 'and' place
-    | vbbtake 'the' Object_alike 'from' 'the' Room 'to' 'the' Placement
-    | vbbring 'me' 'the' Object_alike 'from' 'the' Placement
+    | vbbtake 'the' object_alike 'from' 'the' Room 'to' 'the' placement
+    | vbbring 'me' 'the' object_alike 'from' 'the' placement
     | takefrom 'and' delivme
     | takefrom 'and' delivat
     | takefrom 'and' place
@@ -41,28 +41,28 @@ deliver
 /* Complex manipulation */
 complexman : cmancmd;
 cmancmd
-    : vbbtake 'the' Object_known 'to' 'the' Placement
+    : vbbtake 'the' object_known 'to' 'the' placement
     | vbbring 'me' 'the' abspos 'object' cmanobjsrc
     | vbbring 'me' 'the' 'object' relpos 'the' Object cmanobjsrc
     // | vbbring 'me' 'the' oprop 'object' cmanobjsrc
     | vbbring 'me' 'the' oprop Category cmanobjsrc
     | vbcleanup 'the' Room
     | vbtakeout 'the' garbage
-    | vbbring 'the' Object 'from' 'the' (Room | Beacon) 'to' 'the' (Room | Beacon)
+    | vbbring 'the' Object 'from' 'the' (Room | beacon) 'to' 'the' (Room | beacon)
     ;
-cmanobjsrc : 'from' 'the' Placement;
+cmanobjsrc : 'from' 'the' placement;
 
 /* Find objects */
 fndobj
-    : TELL 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' Placement
+    : TELL 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' placement
     | vbfind 'the' Object 'in' 'the' Room
-    // | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
-    | TELL 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' Placement
-    | TELL 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' Placement
-    | TELL 'me' 'what\'s' 'the' oprop Category 'on' 'the' Placement
+    // | vbfind 'the' object_alike_obfuscated 'in' 'the' Room
+    | TELL 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' placement
+    | TELL 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' placement
+    | TELL 'me' 'what\'s' 'the' oprop Category 'on' 'the' placement
     | vbfind 'the' Category 'in' 'the' Room
-    | TELL 'me' 'which' 'are' 'the' 'three' oprop 'objects' 'on' 'the' Placement
-    | TELL 'me' 'which' 'are' 'the' 'three' oprop Category 'on' 'the' Placement
+    | TELL 'me' 'which' 'are' 'the' 'three' oprop 'objects' 'on' 'the' placement
+    | TELL 'me' 'which' 'are' 'the' 'three' oprop Category 'on' 'the' placement
     | vbfind 'three' Category 'in' 'the' Room
     ;
 
@@ -71,9 +71,9 @@ fndppl
     : talk 'to' whoWhere                                    # talk_to_whowhere
     | findp 'in' 'the' Room 'and' talk                        # find_talk_in_room
     | goroom Comma? findp Comma? 'and' talk                 # go_room_talk
-    | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_name_beacon
-    | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'at' 'the' Beacon      # tell_gender_beacon
-    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_pose_beacon
+    | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'at' 'the' beacon        # tell_name_beacon
+    | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'at' 'the' beacon      # tell_gender_beacon
+    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'at' 'the' beacon        # tell_pose_beacon
     | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'in' 'the' Room          # tell_name_room
     | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'in' 'the' Room        # tell_gender_room
     | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'in' 'the' Room          # tell_pose_room
@@ -83,8 +83,8 @@ fndppl
 
 /* Follow People */
 follow 
-    : vbfollow Name ('from' 'the' Beacon 'to' 'the' Room)?                 # from_beacon_to_room
-    | 'meet' Name 'at' 'the' Beacon 'and' vbfollow Pron fllwdest?     # from_beacon_to_room_indirect
+    : vbfollow Name ('from' 'the' beacon 'to' 'the' Room)?                 # from_beacon_to_room
+    | 'meet' Name 'at' 'the' beacon 'and' vbfollow Pron fllwdest?     # from_beacon_to_room_indirect
     | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron        # from_beacon_to_where
     ;
 fllmeet
@@ -97,24 +97,24 @@ fllwdest
 /* Follow [& Guide] */
 guide : gdcmd;
 gdcmd
-    : vbguide Name 'from' 'the' Beacon 'to' 'the' Beacon        # beacon_to_beacon
-    | 'meet' Name 'at' 'the' Beacon 'and' guideto             # beacon_to_beacon_guide_to
+    : vbguide Name 'from' 'the' beacon 'to' 'the' beacon        # beacon_to_beacon
+    | 'meet' Name 'at' 'the' beacon 'and' guideto             # beacon_to_beacon_guide_to
     | gobeacon Comma? 'meet' Name Comma? 'and' guideto      # beacon_to_beacon_gobeacon_guideto
-    | vbguide Name 'to' 'the' Beacon Comma? gdwhere           # beacon_to_beacon_gdwhere
+    | vbguide Name 'to' 'the' beacon Comma? gdwhere           # beacon_to_beacon_gdwhere
     ;
-guideto : vbguide Pron 'to' 'the' Beacon;
-gdwhere : 'you' ( 'may' | 'can' | 'will' ) FIND Pron 'at' 'the' Beacon;
+guideto : vbguide Pron 'to' 'the' beacon;
+gdwhere : 'you' ( 'may' | 'can' | 'will' ) FIND Pron 'at' 'the' beacon;
 followout
-    : 'meet' Name 'at' 'the' Beacon Comma? vbfollow Pron Comma? 'and' goroom              # beacon_to_room
-    | 'meet' Name 'at' 'the' Beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back' # beacon_to_back
+    : 'meet' Name 'at' 'the' beacon Comma? vbfollow Pron Comma? 'and' goroom              # beacon_to_room
+    | 'meet' Name 'at' 'the' beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back' # beacon_to_back
     ;
 
 /* Incomplete commands */
 incomplete
     : vbfollow Name
-    | vbbring 'me' 'the' Object_obfuscated
-    | vbdeliver Object_obfuscated 'to' someone
-    | vbguide Name 'to' 'the' Beacon
+    | vbbring 'me' 'the' object_obfuscated
+    | vbdeliver object_obfuscated 'to' someone
+    | vbguide Name 'to' 'the' beacon
     | 'meet' inguidewho 'and' vbguide Pron
     | gobeacon Comma? 'meet' inguidewho Comma? 'and' vbguide Pron
     ;
@@ -124,9 +124,9 @@ inguidewho : Name;
 partyhost
     : vbserve 'drinks' 'to' phpeopler
     | vbmeet Name 'at' 'the' door 'and' 'introduce' Pron 'to' phpeopler
-    | vbmeet Name 'at' 'the' Beacon 'and' 'ask' Pron 'to' 'leave'
-    | vbmeet Name 'at' 'the' Beacon 'and' 'introduce' Pron 'to' Name 'at' 'the' Beacon
-    | vbmeet Name 'at' 'the' Beacon 'and' vbguide Pron 'to' Pron taxi
+    | vbmeet Name 'at' 'the' beacon 'and' 'ask' Pron 'to' 'leave'
+    | vbmeet Name 'at' 'the' beacon 'and' 'introduce' Pron 'to' Name 'at' 'the' beacon
+    | vbmeet Name 'at' 'the' beacon 'and' vbguide Pron 'to' Pron taxi
     ;
 phpeople   : 'everyone' | 'all' 'the' peopletype;
 peopletype : 'people' | 'men' | 'women' | 'guests' | 'elders' | 'children';
@@ -166,20 +166,20 @@ vbmeet    : 'contact' | 'face' | FIND | 'greet';
 // people
 someone : 'me' | whoWhere;
 // place an object
-place : vbplace 'it' 'on' 'the' Placement;
+place : vbplace 'it' 'on' 'the' placement;
 // object properties
 oprop : 'biggest' | 'largest' | 'smallest' | 'heaviest' | 'lightest' | 'thinnest';
 // navigating
-goplace : vbgopl 'to' 'the' Placement;
-gobeacon : vbgopl 'to' 'the' Beacon;
+goplace : vbgopl 'to' 'the' placement;
+gobeacon : vbgopl 'to' 'the' beacon;
 goroom : vbgopl 'to' 'the' Room;
 // take an object
 take : vbtake 'the' Object;
-takefrom : take 'from' 'the' Placement;
+takefrom : take 'from' 'the' placement;
 // deliver an object
 delivme : vbdeliver 'it' 'to' 'me';
 delivto : vbdeliver 'it' 'to' Name;
-delivat : vbdeliver 'it' 'to' Name 'at' 'the' Beacon;
+delivat : vbdeliver 'it' 'to' Name 'at' 'the' beacon;
 // speak
 talk 
     : Answer    # answer_question 
@@ -253,11 +253,11 @@ Category : 'food' | 'drinks' | 'cleaning stuff' | 'object';
 /* Objects */
 Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dishsoap'
              | 'handwash' | 'shampoo' | 'cookie' | 'lays' | 'bowl' | 'cloth' | 'tray';
-Object_alike : Object;
-Object_known : Object;
+object_alike : Object;
+object_known : Object;
 
-Object_alike_obfuscated: Category;
-Object_obfuscated: Category;
+object_alike_obfuscated: Category;
+object_obfuscated: Category;
 
 Pron
     : 'he' | 'him' | 'his' | 'himself'
@@ -273,8 +273,8 @@ Gesture : 'waving' | 'raising their left arm' | 'raising their right arm'
 
 /* Locations */
 Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen';
-Beacon    : Location_except_room;
-Placement : Location_except_room;
+beacon    : Location_except_room;
+placement : Location_except_room;
 Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage box'
                      | 'wine rack' | 'sofa' | 'side table' | 'tv cabinet' | 'storage table'
                      | 'sink' | 'dishwasher';

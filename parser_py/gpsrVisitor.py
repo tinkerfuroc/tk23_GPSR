@@ -434,5 +434,35 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gpsrParser#object_alike.
+    def visitObject_alike(self, ctx:gpsrParser.Object_alikeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#object_known.
+    def visitObject_known(self, ctx:gpsrParser.Object_knownContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#object_alike_obfuscated.
+    def visitObject_alike_obfuscated(self, ctx:gpsrParser.Object_alike_obfuscatedContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#object_obfuscated.
+    def visitObject_obfuscated(self, ctx:gpsrParser.Object_obfuscatedContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#beacon.
+    def visitBeacon(self, ctx:gpsrParser.BeaconContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#placement.
+    def visitPlacement(self, ctx:gpsrParser.PlacementContext):
+        return self.visitChildren(ctx)
+
+
 
 del gpsrParser
