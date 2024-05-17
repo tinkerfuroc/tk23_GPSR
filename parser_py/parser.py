@@ -18,6 +18,8 @@ def parse(s: str, debug=False):
     stream = CommonTokenStream(lexer)
     parser = gpsrParser(stream)
     tree = parser.instruction()
+    if not debug:
+        print([str(i) for i in stream.tokens])
     if parser.getNumberOfSyntaxErrors() > 0:
         print("syntax errors")
         return None
@@ -30,7 +32,7 @@ def parse(s: str, debug=False):
 if __name__ == '__main__':
     # print(parse('meet robert at the dishwasher and follow him', True)[0])
     # # print(parse('greet john at the sofa and take him to his cab', True)[0])
-    print(parse('could you please bring me the object above the bread from the wine rack', True)[0])
+    # print(parse('contact patricia at the side table and introduce it to william at the tv cabinet', True)[0])
     while True:
         command = input()
         print(parse(command.lower(), True)[0])

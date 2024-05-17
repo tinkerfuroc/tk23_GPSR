@@ -39,8 +39,8 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#find_pose.
-    def visitFind_pose(self, ctx:gpsrParser.Find_poseContext):
+    # Visit a parse tree produced by gpsrParser#find_Pose.
+    def visitFind_Pose(self, ctx:gpsrParser.Find_PoseContext):
         return self.visitChildren(ctx)
 
 
@@ -104,8 +104,8 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#tell_pose_beacon.
-    def visitTell_pose_beacon(self, ctx:gpsrParser.Tell_pose_beaconContext):
+    # Visit a parse tree produced by gpsrParser#tell_Pose_beacon.
+    def visitTell_Pose_beacon(self, ctx:gpsrParser.Tell_Pose_beaconContext):
         return self.visitChildren(ctx)
 
 
@@ -119,8 +119,8 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#tell_pose_room.
-    def visitTell_pose_room(self, ctx:gpsrParser.Tell_pose_roomContext):
+    # Visit a parse tree produced by gpsrParser#tell_Pose_room.
+    def visitTell_Pose_room(self, ctx:gpsrParser.Tell_Pose_roomContext):
         return self.visitChildren(ctx)
 
 
@@ -129,8 +129,8 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#tell_pose_number.
-    def visitTell_pose_number(self, ctx:gpsrParser.Tell_pose_numberContext):
+    # Visit a parse tree produced by gpsrParser#tell_Pose_number.
+    def visitTell_Pose_number(self, ctx:gpsrParser.Tell_Pose_numberContext):
         return self.visitChildren(ctx)
 
 
@@ -244,63 +244,8 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#pose.
-    def visitPose(self, ctx:gpsrParser.PoseContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#abspos.
-    def visitAbspos(self, ctx:gpsrParser.AbsposContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#relpos.
-    def visitRelpos(self, ctx:gpsrParser.RelposContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#garbage.
-    def visitGarbage(self, ctx:gpsrParser.GarbageContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#luggage.
-    def visitLuggage(self, ctx:gpsrParser.LuggageContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#taxi.
-    def visitTaxi(self, ctx:gpsrParser.TaxiContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by gpsrParser#door.
     def visitDoor(self, ctx:gpsrParser.DoorContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#doorpos.
-    def visitDoorpos(self, ctx:gpsrParser.DoorposContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#vbtakeout.
-    def visitVbtakeout(self, ctx:gpsrParser.VbtakeoutContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#vbcleanup.
-    def visitVbcleanup(self, ctx:gpsrParser.VbcleanupContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#vbserve.
-    def visitVbserve(self, ctx:gpsrParser.VbserveContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#vbmeet.
-    def visitVbmeet(self, ctx:gpsrParser.VbmeetContext):
         return self.visitChildren(ctx)
 
 
@@ -311,11 +256,6 @@ class gpsrVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gpsrParser#place.
     def visitPlace(self, ctx:gpsrParser.PlaceContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#oprop.
-    def visitOprop(self, ctx:gpsrParser.OpropContext):
         return self.visitChildren(ctx)
 
 
@@ -429,8 +369,13 @@ class gpsrVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by gpsrParser#polite.
-    def visitPolite(self, ctx:gpsrParser.PoliteContext):
+    # Visit a parse tree produced by gpsrParser#beacon.
+    def visitBeacon(self, ctx:gpsrParser.BeaconContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gpsrParser#placement.
+    def visitPlacement(self, ctx:gpsrParser.PlacementContext):
         return self.visitChildren(ctx)
 
 
@@ -451,16 +396,6 @@ class gpsrVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gpsrParser#object_obfuscated.
     def visitObject_obfuscated(self, ctx:gpsrParser.Object_obfuscatedContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#beacon.
-    def visitBeacon(self, ctx:gpsrParser.BeaconContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by gpsrParser#placement.
-    def visitPlacement(self, ctx:gpsrParser.PlacementContext):
         return self.visitChildren(ctx)
 
 

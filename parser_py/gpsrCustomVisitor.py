@@ -223,7 +223,7 @@ class gpsrCustomVisitor(gpsrVisitor):
 
 
     # Visit a parse tree produced by gpsrParser#tell_pose_beacon.
-    def visitTell_pose_beacon(self, ctx:gpsrParser.Tell_pose_beaconContext):
+    def visitTell_Pose_beacon(self, ctx:gpsrParser.Tell_Pose_beaconContext):
         task = Task()
         task.task_type = Task_type.IDENTIFY
         self.tasks.append(task)
@@ -283,7 +283,7 @@ class gpsrCustomVisitor(gpsrVisitor):
 
 
     # Visit a parse tree produced by gpsrParser#tell_pose_room.
-    def visitTell_pose_room(self, ctx:gpsrParser.Tell_pose_roomContext):
+    def visitTell_Pose_room(self, ctx:gpsrParser.Tell_Pose_roomContext):
         task = Task()
         task.task_type = Task_type.IDENTIFY
         self.tasks.append(task)
@@ -323,7 +323,7 @@ class gpsrCustomVisitor(gpsrVisitor):
 
 
     # Visit a parse tree produced by gpsrParser#tell_pose_number.
-    def visitTell_pose_number(self, ctx:gpsrParser.Tell_pose_numberContext):
+    def visitTell_Pose_number(self, ctx:gpsrParser.Tell_Pose_numberContext):
         task = Task()
         task.task_type = Task_type.IDENTIFY
         self.tasks.append(task)
@@ -401,7 +401,7 @@ class gpsrCustomVisitor(gpsrVisitor):
 
 
     # Visit a parse tree produced by gpsrParser#find_pose.
-    def visitFind_pose(self, ctx:gpsrParser.Find_poseContext):
+    def visitFind_Pose(self, ctx:gpsrParser.Find_PoseContext):
         pose = Keyword()
         pose.type = KeywordType.POSE
         pose.string = ctx.getChild(3).getText()

@@ -3,19 +3,21 @@ grammar gpsr;
 /* MAIN */
 instruction : mainSentence+;
 mainSentence : pmain | main;
-pmain : polite? main;
+pmain : Polite? main;
 
 main : fndppl | fndobj | guide | follow | followout | incomplete | man | complexman | partyhost;
 
 /* --------------------- category1.txt -------------------------- */
 
 /* Production Rules required by common.txt */
+/* What to say */
+
 
 // Rule for finding a specific (named) person
 findp
     : vbfind 'a' pgenders           # find_gender
     | vbfind 'a' 'person' Gesture     # find_gesture
-    | vbfind 'a' 'person' pose        # find_pose
+    | vbfind 'a' 'person' Pose        # find_Pose
     ;
 // A named or described person in the given place
 whoWhere : 'the' 'person' Gesture 'in' 'the' Room;
@@ -35,19 +37,19 @@ deliver
     | takefrom 'and' delivme
     | takefrom 'and' delivat
     | takefrom 'and' place
-    | vbbtake 'my' luggage 'to' 'the' taxi
+    | vbbtake 'my' Luggage 'to' 'the' Taxi
     ;
 
 /* Complex manipulation */
 complexman : cmancmd;
 cmancmd
     : vbbtake 'the' object_known 'to' 'the' placement
-    | vbbring 'me' 'the' abspos 'object' cmanobjsrc
-    | vbbring 'me' 'the' 'object' relpos 'the' Object cmanobjsrc
-    // | vbbring 'me' 'the' oprop 'object' cmanobjsrc
-    | vbbring 'me' 'the' oprop Category cmanobjsrc
-    | vbcleanup 'the' Room
-    | vbtakeout 'the' garbage
+    | vbbring 'me' 'the' Abspos 'object' cmanobjsrc
+    | vbbring 'me' 'the' 'object' Relpos 'the' Object cmanobjsrc
+    // | vbbring 'me' 'the' Oprop 'object' cmanobjsrc
+    | vbbring 'me' 'the' Oprop Category cmanobjsrc
+    | Vbcleanup 'the' Room
+    | Vbtakeout 'the' Garbage
     | vbbring 'the' Object 'from' 'the' (Room | beacon) 'to' 'the' (Room | beacon)
     ;
 cmanobjsrc : 'from' 'the' placement;
@@ -58,11 +60,11 @@ fndobj
     | vbfind 'the' Object 'in' 'the' Room
     // | vbfind 'the' object_alike_obfuscated 'in' 'the' Room
     | TELL 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' placement
-    | TELL 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' placement
-    | TELL 'me' 'what\'s' 'the' oprop Category 'on' 'the' placement
+    | TELL 'me' 'what\'s' 'the' Oprop 'object' 'on' 'the' placement
+    | TELL 'me' 'what\'s' 'the' Oprop Category 'on' 'the' placement
     | vbfind 'the' Category 'in' 'the' Room
-    | TELL 'me' 'which' 'are' 'the' 'three' oprop 'objects' 'on' 'the' placement
-    | TELL 'me' 'which' 'are' 'the' 'three' oprop Category 'on' 'the' placement
+    | TELL 'me' 'which' 'are' 'the' 'three' Oprop 'objects' 'on' 'the' placement
+    | TELL 'me' 'which' 'are' 'the' 'three' Oprop Category 'on' 'the' placement
     | vbfind 'three' Category 'in' 'the' Room
     ;
 
@@ -73,12 +75,12 @@ fndppl
     | goroom Comma? findp Comma? 'and' talk                 # go_room_talk
     | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'at' 'the' beacon        # tell_name_beacon
     | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'at' 'the' beacon      # tell_gender_beacon
-    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'at' 'the' beacon        # tell_pose_beacon
+    | TELL 'me' 'the' 'Pose' 'of' 'the' 'person' 'at' 'the' beacon        # tell_Pose_beacon
     | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'in' 'the' Room          # tell_name_room
     | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'in' 'the' Room        # tell_gender_room
-    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'in' 'the' Room          # tell_pose_room
+    | TELL 'me' 'the' 'Pose' 'of' 'the' 'person' 'in' 'the' Room          # tell_Pose_room
     | TELL 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pgenderp  # tell_gender_number
-    | TELL 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pose      # tell_pose_number
+    | TELL 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' Pose      # tell_Pose_number
     ;
 
 /* Follow People */
@@ -88,7 +90,7 @@ follow
     | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron        # from_beacon_to_where
     ;
 fllmeet
-    : ('meet' Name) | FIND 'a' 'person'
+    : ('meet' Name) | 'find a person'
     ;
 fllwdest
     : ('to' 'the' Room)
@@ -103,7 +105,7 @@ gdcmd
     | vbguide Name 'to' 'the' beacon Comma? gdwhere           # beacon_to_beacon_gdwhere
     ;
 guideto : vbguide Pron 'to' 'the' beacon;
-gdwhere : 'you' ( 'may' | 'can' | 'will' ) FIND Pron 'at' 'the' beacon;
+gdwhere : 'you' ( 'may' | 'can' | 'will' ) 'find' Pron 'at' 'the' beacon;
 followout
     : 'meet' Name 'at' 'the' beacon Comma? vbfollow Pron Comma? 'and' goroom              # beacon_to_room
     | 'meet' Name 'at' 'the' beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back' # beacon_to_back
@@ -122,11 +124,11 @@ inguidewho : Name;
 
 /* Party host */
 partyhost
-    : vbserve 'drinks' 'to' phpeopler
-    | vbmeet Name 'at' 'the' door 'and' 'introduce' Pron 'to' phpeopler
-    | vbmeet Name 'at' 'the' beacon 'and' 'ask' Pron 'to' 'leave'
-    | vbmeet Name 'at' 'the' beacon 'and' 'introduce' Pron 'to' Name 'at' 'the' beacon
-    | vbmeet Name 'at' 'the' beacon 'and' vbguide Pron 'to' Pron taxi
+    : Vbserve 'drinks' 'to' phpeopler
+    | Vbmeet Name 'at' 'the' door 'and' 'introduce' Pron 'to' phpeopler
+    | Vbmeet Name 'at' 'the' beacon 'and' 'ask' Pron 'to' 'leave'
+    | Vbmeet Name 'at' 'the' beacon 'and' 'introduce' Pron 'to' Name 'at' 'the' beacon
+    | Vbmeet Name 'at' 'the' beacon 'and' vbguide Pron 'to' Pron Taxi
     ;
 phpeople   : 'everyone' | 'all' 'the' peopletype;
 peopletype : 'people' | 'men' | 'women' | 'guests' | 'elders' | 'children';
@@ -146,20 +148,20 @@ FEMALE : 'female';
 
 pgenders : MAN | WOMAN | BOY | GIRL;
 pgenderp : MEN | WOMEN | BOYS | GIRLS | MALE | FEMALE;
-pose     : 'sitting' | 'standing' | 'lying' 'down';
-abspos   : 'left' 'most' | 'right' 'most';
-relpos   : 'at' 'the' 'left' 'of' | 'at' 'the' 'right' 'of' | 'on' 'top' 'of' | 'above' | 'behind' | 'under';
-garbage  : 'litter' | 'garbage' | 'trash' | 'waste' | 'debris' | 'junk';
-luggage  : 'bag' | 'baggage' | 'valise' | 'suitcase' | 'trolley';
-taxi     : 'taxi' | 'cab' | 'uber';
-door     : doorpos 'entrance' | doorpos 'door';
-doorpos  : 'front' | 'back' | 'main' | 'rear';
+Pose     : 'sitting' | 'standing' | 'lying' 'down';
+Abspos   : 'left' 'most' | 'right' 'most';
+Relpos   : 'at' 'the' 'left' 'of' | 'at' 'the' 'right' 'of' | 'on' 'top' 'of' | 'above' | 'behind' | 'under';
+Garbage  : 'litter' | 'Garbage' | 'trash' | 'waste' | 'debris' | 'junk';
+Luggage  : 'bag' | 'baggage' | 'valise' | 'suitcase' | 'trolley';
+Taxi     : 'Taxi' | 'cab' | 'uber';
+door     : Doorpos 'entrance' | Doorpos 'door';
+Doorpos  : 'front' | 'back' | 'main' | 'rear';
 
 /* Verbs */
-vbtakeout : TAKE 'out' | 'dump';
-vbcleanup : 'clean' 'out' | 'clean' 'up' | 'tidy' 'op' | 'neaten' | 'order';
-vbserve   : 'serve' | 'arrange' | DELIVER | 'distribute' | GIVE | 'provide';
-vbmeet    : 'contact' | 'face' | FIND | 'greet';
+Vbtakeout : 'take out' | 'dump';
+Vbcleanup : 'clean' 'out' | 'clean' 'up' | 'tidy' 'op' | 'neaten' | 'order';
+Vbserve   : 'serve' | 'arrange' | 'deliver' | 'distribute' | 'give' | 'provide';
+Vbmeet    : 'contact' | 'face' | 'find' | 'greet';
 
 /* --------------------- common.txt -------------------------- */
 /* Rules */
@@ -168,7 +170,7 @@ someone : 'me' | whoWhere;
 // place an object
 place : vbplace 'it' 'on' 'the' placement;
 // object properties
-oprop : 'biggest' | 'largest' | 'smallest' | 'heaviest' | 'lightest' | 'thinnest';
+Oprop : 'biggest' | 'largest' | 'smallest' | 'heaviest' | 'lightest' | 'thinnest';
 // navigating
 goplace : vbgopl 'to' 'the' placement;
 gobeacon : vbgopl 'to' 'the' beacon;
@@ -185,24 +187,22 @@ talk
     : Answer    # answer_question 
     | speak     # speak_to
     ;
-Answer : 'answer' 'a' 'question';
+Answer : 'answer a question';
 speak : vbspeak Whattosay;
 
-/* What to say */
 Whattosay
-    : 'something' 'about' 'yourself'
-    | 'the' 'time'
-    | 'what' 'day' 'is' ( 'today' | 'tomorrow' )
-    | 'your' 'team\'s' ( 'name' | 'country' | 'affiliation' )
-    | 'the' 'day' 'of' 'the' ( 'week' | 'month' )
-    | 'a' 'joke'
+    : 'something about yourself'
+    | 'the time'
+    | 'what day is tomorrow'
+    | 'what day is today'
+    | 'your team\'s' ( 'name' | 'country' | 'affiliation' )
+    | 'the day of the' ( 'week' | 'month' )
+    | 'a joke'
     ;
 
 /* Verbs */
 BRING : 'bring';
 TAKE : 'take';
-DELIVER : 'deliver';
-GIVE : 'give';
 PUT : 'put';
 PLACE : 'place';
 GET : 'get';
@@ -213,7 +213,6 @@ SAY : 'say';
 GO : 'go';
 NAVIGATE : 'navigate';
 ENTER : 'enter';
-FIND : 'find';
 LOCATE : 'locate';
 LOOK_FOR : 'look_for';
 GUIDE : 'guide';
@@ -224,18 +223,18 @@ FOLLOW : 'follow';
 
 vbbtake : BRING | TAKE;
 vbplace : PUT | PLACE;
-vbbring : BRING | GIVE;
-vbdeliver :  vbbring | DELIVER;
+vbbring : BRING | 'bring';
+vbdeliver :  vbbring | 'diliver';
 vbtake : GET | GRASP | TAKE | PICK_UP;
 vbspeak : TELL | SAY;
 vbgopl : GO | NAVIGATE;
 vbgor : vbgopl | ENTER;
-vbfind : FIND | LOCATE | LOOK_FOR;
+vbfind : 'find' | LOCATE | LOOK_FOR;
 vbguide : GUIDE | ESCORT | TAKE | LEAD | ACCOMPANY;
 vbfollow : FOLLOW;
 
 /* Polite */
-polite
+Polite
     : 'please'
     | 'could you'
     | 'robot please'
@@ -246,6 +245,13 @@ polite
 Comma : ',';
 
 /* ---------------------    xmls    -------------------------- */
+/* Locations */
+Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen' | 'corridot';
+beacon    : Location_except_room;
+placement : Location_except_room;
+Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage box'
+                     | 'wine rack' | 'couch' | 'side table' | 'tv cabinet' | 'storage table'
+                     | 'sink' | 'dishwasher' | 'entrance' | 'exit';
 
 /* Object categories (giving the objects.xml)*/
 Category : 'food' | 'drinks' | 'cleaning stuff' | 'object';
@@ -270,14 +276,6 @@ Pron
 /* Gestures */
 Gesture : 'waving' | 'raising their left arm' | 'raising their right arm' 
         | 'pointing to the left' | 'pointing to the right';
-
-/* Locations */
-Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen' | 'corridot';
-beacon    : Location_except_room;
-placement : Location_except_room;
-Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage box'
-                     | 'wine rack' | 'couch' | 'side table' | 'tv cabinet' | 'storage table'
-                     | 'sink' | 'dishwasher' | 'entrance' | 'exit';
 
 /* Names */
 Name
