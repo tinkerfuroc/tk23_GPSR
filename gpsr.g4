@@ -54,15 +54,15 @@ cmanobjsrc : 'from' 'the' Placement;
 
 /* Find objects */
 fndobj
-    : 'tell' 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' Placement
+    : TELL 'me' 'how' 'many' Object 'there' 'are' 'on' 'the' Placement
     | vbfind 'the' Object 'in' 'the' Room
     // | vbfind 'the' Object_alike_obfuscated 'in' 'the' Room
-    | 'tell' 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' Placement
-    | 'tell' 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' Placement
-    | 'tell' 'me' 'what\'s' 'the' oprop Category 'on' 'the' Placement
+    | TELL 'me' 'how' 'many' Category 'there' 'are' 'on' 'the' Placement
+    | TELL 'me' 'what\'s' 'the' oprop 'object' 'on' 'the' Placement
+    | TELL 'me' 'what\'s' 'the' oprop Category 'on' 'the' Placement
     | vbfind 'the' Category 'in' 'the' Room
-    | 'tell' 'me' 'which' 'are' 'the' 'three' oprop 'objects' 'on' 'the' Placement
-    | 'tell' 'me' 'which' 'are' 'the' 'three' oprop Category 'on' 'the' Placement
+    | TELL 'me' 'which' 'are' 'the' 'three' oprop 'objects' 'on' 'the' Placement
+    | TELL 'me' 'which' 'are' 'the' 'three' oprop Category 'on' 'the' Placement
     | vbfind 'three' Category 'in' 'the' Room
     ;
 
@@ -71,14 +71,14 @@ fndppl
     : talk 'to' whoWhere                                    # talk_to_whowhere
     | findp 'in' 'the' Room 'and' talk                        # find_talk_in_room
     | goroom Comma? findp Comma? 'and' talk                 # go_room_talk
-    | 'tell' 'me' 'the' 'name' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_name_beacon
-    | 'tell' 'me' 'the' 'gender' 'of' 'the' 'person' 'at' 'the' Beacon      # tell_gender_beacon
-    | 'tell' 'me' 'the' 'pose' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_pose_beacon
-    | 'tell' 'me' 'the' 'name' 'of' 'the' 'person' 'in' 'the' Room          # tell_name_room
-    | 'tell' 'me' 'the' 'gender' 'of' 'the' 'person' 'in' 'the' Room        # tell_gender_room
-    | 'tell' 'me' 'the' 'pose' 'of' 'the' 'person' 'in' 'the' Room          # tell_pose_room
-    | 'tell' 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pgenderp  # tell_gender_number
-    | 'tell' 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pose      # tell_pose_number
+    | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_name_beacon
+    | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'at' 'the' Beacon      # tell_gender_beacon
+    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'at' 'the' Beacon        # tell_pose_beacon
+    | TELL 'me' 'the' 'name' 'of' 'the' 'person' 'in' 'the' Room          # tell_name_room
+    | TELL 'me' 'the' 'gender' 'of' 'the' 'person' 'in' 'the' Room        # tell_gender_room
+    | TELL 'me' 'the' 'pose' 'of' 'the' 'person' 'in' 'the' Room          # tell_pose_room
+    | TELL 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pgenderp  # tell_gender_number
+    | TELL 'me' 'how' 'many' 'people' 'in' 'the' Room 'are' pose      # tell_pose_number
     ;
 
 /* Follow People */
@@ -88,7 +88,7 @@ follow
     | gobeacon Comma? 'meet' Name Comma? 'and' vbfollow Pron        # from_beacon_to_where
     ;
 fllmeet
-    : ('meet' Name) | 'find' 'a' 'person'
+    : ('meet' Name) | FIND 'a' 'person'
     ;
 fllwdest
     : ('to' 'the' Room)
@@ -103,7 +103,7 @@ gdcmd
     | vbguide Name 'to' 'the' Beacon Comma? gdwhere           # beacon_to_beacon_gdwhere
     ;
 guideto : vbguide Pron 'to' 'the' Beacon;
-gdwhere : 'you' ( 'may' | 'can' | 'will' ) 'find' Pron 'at' 'the' Beacon;
+gdwhere : 'you' ( 'may' | 'can' | 'will' ) FIND Pron 'at' 'the' Beacon;
 followout
     : 'meet' Name 'at' 'the' Beacon Comma? vbfollow Pron Comma? 'and' goroom              # beacon_to_room
     | 'meet' Name 'at' 'the' Beacon Comma? vbfollow Pron Comma? 'and' vbguide Pron 'back' # beacon_to_back
@@ -133,8 +133,19 @@ peopletype : 'people' | 'men' | 'women' | 'guests' | 'elders' | 'children';
 phpeopler  : phpeople 'in' 'the' Room;
 
 /* Rules */
-pgenders : 'man' | 'woman' | 'boy' | 'girl';
-pgenderp : 'men' | 'women' | 'boys' | 'girls' | 'male' | 'female';
+MAN : 'man';
+WOMAN : 'woman';
+BOY : 'boy';
+GIRL : 'girl';
+MEN : 'men';
+WOMEN : 'women';
+BOYS : 'boys';
+GIRLS : 'girls';
+MALE : 'male';
+FEMALE : 'female';
+
+pgenders : MAN | WOMAN | BOY | GIRL;
+pgenderp : MEN | WOMEN | BOYS | GIRLS | MALE | FEMALE;
 pose     : 'sitting' | 'standing' | 'lying' 'down';
 abspos   : 'left' 'most' | 'right' 'most';
 relpos   : 'at' 'the' 'left' 'of' | 'at' 'the' 'right' 'of' | 'on' 'top' 'of' | 'above' | 'behind' | 'under';
@@ -148,7 +159,7 @@ doorpos  : 'front' | 'back' | 'main' | 'rear';
 vbtakeout : TAKE 'out' | 'dump';
 vbcleanup : 'clean' 'out' | 'clean' 'up' | 'tidy' 'op' | 'neaten' | 'order';
 vbserve   : 'serve' | 'arrange' | DELIVER | 'distribute' | GIVE | 'provide';
-vbmeet    : 'contact' | 'face' | 'find' | 'greet';
+vbmeet    : 'contact' | 'face' | FIND | 'greet';
 
 /* --------------------- common.txt -------------------------- */
 /* Rules */
@@ -196,20 +207,32 @@ PUT : 'put';
 PLACE : 'place';
 GET : 'get';
 GRASP : 'grasp';
+PICK_UP : 'pick up';
+TELL : 'tell';
+SAY : 'say';
+GO : 'go';
+NAVIGATE : 'navigate';
+ENTER : 'enter';
+FIND : 'find';
+LOCATE : 'locate';
+LOOK_FOR : 'look_for';
+GUIDE : 'guide';
+ESCORT : 'escort';
+LEAD : 'lead';
+ACCOMPANY : 'accompany';
+FOLLOW : 'follow';
 
-vbbtake : BRING | TAKE
-    ;
+vbbtake : BRING | TAKE;
 vbplace : PUT | PLACE;
 vbbring : BRING | GIVE;
-vbdeliver :  vbbring | DELIVER
-    ;
-vbtake : GET | GRASP | TAKE | 'pick' 'up';
-vbspeak : 'tell' | 'say';
-vbgopl : 'go' | 'navigate';
-vbgor : vbgopl | 'enter';
-vbfind : 'find' | 'locate' | 'look' 'for';
-vbguide : 'guide' | 'escort' | TAKE | 'lead' | 'accompany';
-vbfollow : 'follow';
+vbdeliver :  vbbring | DELIVER;
+vbtake : GET | GRASP | TAKE | PICK_UP;
+vbspeak : TELL | SAY;
+vbgopl : GO | NAVIGATE;
+vbgor : vbgopl | ENTER;
+vbfind : FIND | LOCATE | LOOK_FOR;
+vbguide : GUIDE | ESCORT | TAKE | LEAD | ACCOMPANY;
+vbfollow : FOLLOW;
 
 /* Polite */
 polite
