@@ -145,9 +145,9 @@ door     : doorpos 'entrance' | doorpos 'door';
 doorpos  : 'front' | 'back' | 'main' | 'rear';
 
 /* Verbs */
-vbtakeout : 'take' 'out' | 'dump';
+vbtakeout : TAKE 'out' | 'dump';
 vbcleanup : 'clean' 'out' | 'clean' 'up' | 'tidy' 'op' | 'neaten' | 'order';
-vbserve   : 'serve' | 'arrange' | 'deliver' | 'distribute' | 'give' | 'provide';
+vbserve   : 'serve' | 'arrange' | DELIVER | 'distribute' | GIVE | 'provide';
 vbmeet    : 'contact' | 'face' | 'find' | 'greet';
 
 /* --------------------- common.txt -------------------------- */
@@ -188,16 +188,27 @@ Whattosay
     ;
 
 /* Verbs */
-vbbtake : 'bring' | 'take';
-vbplace : 'put' | 'place';
-vbbring : 'bring' | 'give';
-vbdeliver : vbbring | 'deliver';
-vbtake : 'get' | 'grasp' | 'take' | 'pick' 'up';
+BRING : 'bring';
+TAKE : 'take';
+DELIVER : 'deliver';
+GIVE : 'give';
+PUT : 'put';
+PLACE : 'place';
+GET : 'get';
+GRASP : 'grasp';
+
+vbbtake : BRING | TAKE
+    ;
+vbplace : PUT | PLACE;
+vbbring : BRING | GIVE;
+vbdeliver :  vbbring | DELIVER
+    ;
+vbtake : GET | GRASP | TAKE | 'pick' 'up';
 vbspeak : 'tell' | 'say';
 vbgopl : 'go' | 'navigate';
 vbgor : vbgopl | 'enter';
 vbfind : 'find' | 'locate' | 'look' 'for';
-vbguide : 'guide' | 'escort' | 'take' | 'lead' | 'accompany';
+vbguide : 'guide' | 'escort' | TAKE | 'lead' | 'accompany';
 vbfollow : 'follow';
 
 /* Polite */
@@ -229,7 +240,7 @@ Pron
     : 'he' | 'him' | 'his' | 'himself'
     | 'she' | 'her' |'hers' | 'herself'
     | 'it' | 'its' | 'itself'
-    | 'my' | 'mine' | 'your' | 'yours' 
+    | 'my' | 'mine' | 'your' | 'yours' | 'myself'
     | 'they' | 'them'| 'their' | 'theirs' 
     ;
 
