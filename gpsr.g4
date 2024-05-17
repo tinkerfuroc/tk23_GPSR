@@ -251,8 +251,8 @@ Comma : ',';
 Category : 'food' | 'drinks' | 'cleaning stuff' | 'object';
 
 /* Objects */
-Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dishsoap'
-             | 'handwash' | 'shampoo' | 'cookie' | 'lays' | 'bowl' | 'cloth' | 'tray';
+Object       : 'chip' | 'biscuit' | 'bread' | 'sprite' | 'cola' | 'water' | 'dishsoap' | 'dish soap'
+             | 'handwash' | 'shampoo' | 'cookie' | 'lays' | 'bowl' | 'cloth' | 'tray' | 'orange juice';
 object_alike : Object;
 object_known : Object;
 
@@ -272,12 +272,12 @@ Gesture : 'waving' | 'raising their left arm' | 'raising their right arm'
         | 'pointing to the left' | 'pointing to the right';
 
 /* Locations */
-Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen';
+Room      : 'bedroom' | 'dining room' | 'living room' | 'kitchen' | 'corridot';
 beacon    : Location_except_room;
 placement : Location_except_room;
 Location_except_room : 'bed' | 'dresser' | 'desk' | 'dining table' | 'storage box'
-                     | 'wine rack' | 'sofa' | 'side table' | 'tv cabinet' | 'storage table'
-                     | 'sink' | 'dishwasher';
+                     | 'wine rack' | 'couch' | 'side table' | 'tv cabinet' | 'storage table'
+                     | 'sink' | 'dishwasher' | 'entrance' | 'exit';
 
 /* Names */
 Name
