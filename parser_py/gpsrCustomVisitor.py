@@ -509,7 +509,7 @@ class gpsrCustomVisitor(gpsrVisitor):
     # Visit a parse tree produced by gpsrParser#incomplete.
     def visitIncomplete(self, ctx:gpsrParser.IncompleteContext):
         task = Task()
-        task.task_type = Task_type.FIND_OBJECT
+        task.task_type = Task_type.INCOMPLETE
         self.tasks.append(task)
         return None
     
